@@ -1,0 +1,32 @@
+---
+import type { NumberProps } from "../Number/types"
+
+import Number from "../Number/index.astro"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	property,
+	type: _type,
+	useMicrodata,
+	value: val,
+	...attrs
+} = Astro.props as NumberProps
+
+const value = typeof val === "number" ? val : parseFloat(String(val))
+
+const attributes = mapAttributes(attrs, ["real-number"])
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Integer", property]
+	: []
+---
+
+<Number
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	type="Float"
+	{value}
+/>

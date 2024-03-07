@@ -1,0 +1,70 @@
+---
+import type { NumberProps } from "./types"
+
+import type { LinkProps } from "../../../types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import toTrainCase from "../../../utilities/toTrainCase"
+
+import { DEFAULT_LOCALES } from "../../constants"
+
+const {
+	link = {} as Partial<LinkProps>,
+	locales = DEFAULT_LOCALES,
+	options = {},
+	property,
+	type = "Number",
+	useMicrodata,
+	useTabularNumerals,
+	value,
+	...attrs
+} = Astro.props as NumberProps
+
+useTabularNumerals && import("../tabluar-numerals.css")
+
+const schemaType = `${toTrainCase(type)}`
+const { href } = link
+
+const attributes = mapAttributes(attrs, [
+	schemaType,
+	...(useTabularNumerals ? ["tabular-numerals"] : []),
+])
+const linkAttrs = mapAttributes(link, [schemaType])
+
+const ext = `${href}`?.includes("://") ? { rel: "external" } : {}
+const val = typeof value === "number" ? value : parseFloat(String(value))
+
+const num = Number.isNaN(val)
+	? await Astro.slots.render("default")
+	: new Intl.NumberFormat(locales, options).format(val as number)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Integer", property]
+	: []
+---
+
+{
+	href ? (
+		<a
+			{...linkAttrs}
+			{href}
+			{...ext}
+		>
+			<span
+				{itemprop}
+				{itemscope}
+				{itemtype}
+				{...attributes}
+				set:html={num}
+			/>
+		</a>
+	) : (
+		<span
+			{itemprop}
+			{itemscope}
+			{itemtype}
+			{...attributes}
+			set:html={num}
+		/>
+	)
+}

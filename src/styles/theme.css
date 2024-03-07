@@ -1,0 +1,24 @@
+:root {
+	/* spacing */
+	--space-3xs: clamp(0.3125rem, 0.3125rem + 0vi, 0.3125rem);
+	--space-2xs: clamp(0.5625rem, 0.5408rem + 0.1087vi, 0.625rem);
+	--space-xs: clamp(0.875rem, 0.8533rem + 0.1087vi, 0.9375rem);
+	--space-s: clamp(1.125rem, 1.0815rem + 0.2174vi, 1.25rem);
+	--space-m: clamp(1.6875rem, 1.6223rem + 0.3261vi, 1.875rem);
+	--space-l: clamp(2.25rem, 2.163rem + 0.4348vi, 2.5rem);
+	--space-xl: clamp(3.375rem, 3.2446rem + 0.6522vi, 3.75rem);
+	--space-2xl: clamp(4.5rem, 4.3261rem + 0.8696vi, 5rem);
+	--space-3xl: clamp(6.75rem, 6.4891rem + 1.3043vi, 7.5rem);
+
+	/* font sizes */
+	--step-0: clamp(1.125rem, 1.0815rem + 0.2174vi, 1.25rem);
+	--step-1: clamp(1.35rem, 1.2761rem + 0.3696vi, 1.5625rem);
+	--step-2: clamp(1.62rem, 1.5041rem + 0.5793vi, 1.9531rem);
+	--step-3: clamp(1.944rem, 1.771rem + 0.8651vi, 2.4414rem);
+	--step-4: clamp(2.3328rem, 2.0827rem + 1.2504vi, 3.0518rem);
+	--step-5: clamp(2.7994rem, 2.4462rem + 1.7658vi, 3.8147rem);
+
+	/* font families */
+	--font-body: system-ui, sans-serif;
+	--font-titles: system-ui, sans-serif;
+}

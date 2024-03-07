@@ -1,0 +1,29 @@
+---
+import type { NumberProps } from "../Number/types"
+import Number from "../Number/index.astro"
+
+const {
+	property,
+	type: _type,
+	useMicrodata,
+	value: val,
+	...attrs
+} = Astro.props as NumberProps
+
+const value = Math.round(
+	typeof val === "number" ? val : parseInt(String(val), 10),
+)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Integer", property]
+	: []
+---
+
+<Number
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attrs}
+	type="Integer"
+	{value}
+/>

@@ -1,0 +1,54 @@
+---
+import type { BylineProps } from "./types"
+
+import { Temporal } from "temporal-polyfill"
+
+import getConjunction from "../../../../utilities/getConjunction"
+import mapAttributes from "../../../../utilities/mapAttributes"
+import Author from "./Author/index.astro"
+import PlainDate from "../../../temporal/PlainDate/index.astro"
+
+const {
+	ariaLabel,
+	as: Element = "div",
+	authors,
+	datePublished,
+	slot: _slot,
+	useMicrodata,
+	...attrs
+} = Astro.props as BylineProps
+
+const attributes = mapAttributes(attrs, ["byline"])
+
+const persons = Array.isArray(authors) ? authors : [authors]
+
+const itemprop = useMicrodata ? "datePublished" : undefined
+---
+
+{
+	authors ? (
+		<Element {...attributes}>
+			{datePublished ? (
+				<PlainDate
+					{itemprop}
+					plainDate={Temporal.PlainDate.from(datePublished)}
+				/>
+			) : null}
+			by{" "}
+			{authors
+				? persons.map((person, index) => {
+						const conjunction = getConjunction(persons.length, index)
+						return (
+							<>
+								<Author
+									{person}
+									{useMicrodata}
+								/>
+								{conjunction}
+							</>
+						)
+					})
+				: null}
+		</Element>
+	) : null
+}

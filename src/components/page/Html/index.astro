@@ -1,0 +1,21 @@
+---
+import type { HtmlProps } from "./types"
+
+const {
+	dir = "ltr",
+	lang = "en",
+	prefix = "og: https://ogp.me/ns#",
+	...attrs
+} = Astro.props as HtmlProps
+---
+
+<html
+	{...attrs}
+	{dir}
+	{lang}
+	{prefix}
+>
+	<slot />
+
+
+</html>

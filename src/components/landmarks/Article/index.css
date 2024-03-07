@@ -1,0 +1,8 @@
+.article {
+	background-color: var(--article-background-color, inherit);
+	color: var(--article-foreground-color, currentColor);
+	margin-block: var(--article-margin-block, 0);
+	margin-inline: var(--article-margin-inline, 0);
+	padding-block: var(--article-padding-block, 0);
+	padding-inline: var(--article-padding-inline, 0);
+}

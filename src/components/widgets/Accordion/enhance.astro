@@ -1,0 +1,82 @@
+---
+
+---
+
+<script>
+	type WithOpenHeight = HTMLElement & { sbOpenHeight?: number }
+
+	function toggleAccordion(event) {
+		event.preventDefault()
+
+		const DELAY = 10
+		const OPEN_INCREMENT = 15
+		const SHUT_INCREMENT = 25
+
+		const summary = event.target
+		const accordion = summary.closest("details")
+		const content = accordion.querySelector(".xx-accordion-content")
+		const openHeight = summary.xxOpenHeight
+
+		if (!(summary && accordion && content)) {
+			return
+		}
+
+		function shutAccordion() {
+			const currentHeight = parseInt(content.style.maxHeight, 10)
+
+			if (currentHeight > 0) {
+				content.style.maxHeight =
+					currentHeight < SHUT_INCREMENT
+						? "0"
+						: `${currentHeight - SHUT_INCREMENT}px`
+
+				setTimeout(shutAccordion, DELAY)
+
+				return
+			}
+
+			accordion.open = false
+		}
+
+		if (accordion.open) {
+			content.style.maxHeight = `${openHeight}px`
+
+			shutAccordion()
+
+			return
+		}
+
+		function openAccordion() {
+			accordion.open = true
+
+			const currentHeight = parseInt(content.style.maxHeight, 10)
+
+			if (currentHeight < openHeight) {
+				content.style.maxHeight = `${currentHeight + OPEN_INCREMENT}px`
+
+				setTimeout(openAccordion, DELAY)
+			}
+		}
+
+		content.style.maxHeight = "0px"
+
+		openAccordion()
+	}
+
+	function enhanceAccordions() {
+		const nodes = document.querySelectorAll(".accordion")
+
+		for (let node of nodes) {
+			const summary = node.querySelector("summary")
+			const content = node.querySelector(".accordion .content")
+
+			if (summary && content) {
+				;(summary as WithOpenHeight).sbOpenHeight = content.clientHeight
+			}
+
+			summary?.addEventListener("click", toggleAccordion)
+		}
+	}
+
+	globalThis.addEventListener("DOMContentLoaded", enhanceAccordions)
+</script>

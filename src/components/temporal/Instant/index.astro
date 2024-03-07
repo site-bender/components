@@ -1,0 +1,40 @@
+---
+import mapAttributes from "../../../utilities/mapAttributes"
+import type { InstantProps } from "./types"
+import { DEFAULT_LOCALES } from "../../constants"
+import { Intl, Temporal } from "temporal-polyfill"
+
+const {
+	instant,
+	locales = DEFAULT_LOCALES,
+	options = {},
+	property,
+	useMicrodata,
+	...attrs
+} = Astro.props as InstantProps
+
+const attributes = mapAttributes(attrs, ["instant"])
+
+const value =
+	instant instanceof Temporal.ZonedDateTime
+		? instant.toInstant()
+		: typeof instant === "string"
+			? Temporal.Instant.from(instant)
+			: instant
+
+const label = new Intl.DateTimeFormat(locales, options).format(value)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/DateTime", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	datetime={value.toJSON()}
+>
+	{label}
+</time>

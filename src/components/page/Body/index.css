@@ -1,0 +1,18 @@
+body {
+	display: var(--body-display, grid);
+	grid-template-columns: var(
+		--body-grid-template-columns,
+		[viewport-left] 2vw [content-left] auto [content-right] 2vw [viewport-right]
+	);
+	grid-template-rows: var(
+		--body-grid-template-rows,
+		[viewport-top header-top] min-content [header-bottom nav-top] min-content
+			[nav-bottom main-top] auto [main-bottom footer-top] min-content
+			[footer-bottom viewport-bottom]
+	);
+	font-family: var(--body-font-family, var(--font-body, initial));
+	font-size: var(--body-font-size, var(--step-0, initial));
+	margin: 0;
+	min-height: 100vh;
+	padding: var(--body-padding, 0);
+}

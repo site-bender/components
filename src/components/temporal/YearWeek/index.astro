@@ -1,0 +1,36 @@
+---
+import type { YearWeekProps } from "./types"
+
+import { Temporal } from "temporal-polyfill"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const { date, property, useMicrodata, week, year, ...attrs } =
+	Astro.props as YearWeekProps
+
+const attributes = mapAttributes(attrs, ["year-week"])
+
+const { weekOfYear, yearOfWeek } = date
+	? Temporal.PlainDate.from(date)
+	: {
+			weekOfYear: week,
+			yearOfWeek: year,
+		}
+
+const label =
+	(await Astro.slots.render("default")) || `${yearOfWeek}-W${weekOfYear}`
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Date", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	datetime={label}
+>
+	{label}
+</time>

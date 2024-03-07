@@ -1,0 +1,40 @@
+---
+import type { AccordionProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	content = {},
+	id = generateShortId(),
+	summary = {},
+	title,
+	...attrs
+} = Astro.props as AccordionProps
+
+const { id: cId = generateShortId(), ...cAttrs } = content
+const { id: sId = generateShortId(), ...sAttrs } = summary
+
+const attributes = mapAttributes(attrs, ["accordion", "details"])
+const cAttributes = mapAttributes(cAttrs, ["accordion", "content"])
+const sAttributes = mapAttributes(sAttrs, ["accordion", "summary"])
+
+const heading = (await Astro.slots.render("summary")) || title
+---
+
+<details
+	{id}
+	{...attributes}
+>
+	<summary
+		id={sId}
+		{...sAttributes}
+		set:html={heading}
+	/>
+	<div
+		aria-labelledby={sId}
+		{...cAttributes}
+	>
+		<slot />
+	</div>
+</details>

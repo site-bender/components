@@ -1,0 +1,56 @@
+---
+import type { TelephoneProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	as: Element = "span",
+	link = {},
+	property = "telephone",
+	tel,
+	type = "Text",
+	useTel,
+	useMicrodata,
+	...attrs
+} = Astro.props as TelephoneProps
+
+const { href: url, ...lAttrs } = link
+
+const attributes = mapAttributes(attrs, ["telephone"])
+const linkAttrs = mapAttributes(lAttrs, ["telephone-link"])
+
+const telephone = ((await Astro.slots.render("default")) || tel || "").trim()
+
+const href = useTel ? `tel:${telephone.replaceAll(/[^0-9+]/g, "")}` : url
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, `"https://schema.org/${type}`, property]
+	: []
+---
+
+{
+	href ? (
+		<a
+			{...linkAttrs}
+			{href}
+		>
+			<Element
+				{itemprop}
+				{itemscope}
+				{itemtype}
+				{...attributes}
+			>
+				{telephone}
+			</Element>
+		</a>
+	) : (
+		<Element
+			{itemprop}
+			{itemscope}
+			{itemtype}
+			{...attributes}
+		>
+			{telephone}
+		</Element>
+	)
+}

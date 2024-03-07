@@ -1,0 +1,16 @@
+---
+import type { HeadProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const { config = {}, ...attrs } = Astro.props as HeadProps
+
+const attributes = mapAttributes(attrs, [])
+---
+
+<head {...attributes}>
+	<title>{config.title ?? "@sitebender/components"}</title>
+	<meta charset="UTF-8" />
+	<slot name="microdata" />
+	<slot name="scripts" />
+</head>

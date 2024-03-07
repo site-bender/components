@@ -1,0 +1,63 @@
+---
+import type { DateTimeFormatOptions, PlainTimeProps } from "../../../types"
+
+import { Intl, Temporal } from "temporal-polyfill"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import { DEFAULT_TIME_OPTIONS } from "../constants"
+import { DEFAULT_LOCALES } from "../../constants"
+
+const {
+	dataset,
+	hour,
+	locales = DEFAULT_LOCALES,
+	microsecond = 0,
+	millisecond = 0,
+	minute = 0,
+	nanosecond = 0,
+	options = {} as DateTimeFormatOptions,
+	plainTime = Temporal.Now.plainTimeISO(),
+	property,
+	second = 0,
+	useMicrodata,
+	...attrs
+} = Astro.props as PlainTimeProps
+
+const attributes = mapAttributes(attrs, ["plain-time"])
+
+const val = hour
+	? ({
+			hour: Number(hour),
+			microsecond: Number(microsecond),
+			millisecond: Number(millisecond),
+			minute: Number(minute),
+			nanosecond: Number(nanosecond),
+			second: Number(second),
+		} as Temporal.PlainTimeLike)
+	: (plainTime as Temporal.PlainTime)
+
+const value = Temporal.PlainTime.from(val)
+
+const opts = {
+	...DEFAULT_TIME_OPTIONS,
+	calendar: "iso8601",
+	...options,
+}
+
+const label = new Intl.DateTimeFormat(locales, opts).format(value)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Time", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	datetime={value.toJSON()}
+>
+	{label}
+</time>

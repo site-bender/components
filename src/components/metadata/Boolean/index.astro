@@ -1,0 +1,36 @@
+---
+import mapAttributes from "../../../utilities/mapAttributes"
+import type { BooleanProps } from "./types"
+
+const {
+	as: Element = "span",
+	labelFalse = "",
+	labelTrue,
+	property,
+	type,
+	useMicrodata,
+	value,
+	...attrs
+} = Astro.props as BooleanProps
+
+const attributes = mapAttributes(attrs, ["boolean"])
+
+const label = value ? labelTrue : labelFalse
+
+const [itemscope, itemtype] =
+	useMicrodata && type ? [true, `"https://schema.org/${type}`] : []
+const itemprop = useMicrodata ? property : undefined
+---
+
+{
+	label ? (
+		<Element
+			{itemprop}
+			{itemscope}
+			{itemtype}
+			{...attributes}
+		>
+			{label}
+		</Element>
+	) : null
+}

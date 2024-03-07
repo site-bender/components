@@ -1,26 +1,82 @@
 {
-  "name": "components",
-  "version": "0.0.1",
-  "type": "module",
-  "exports": {
-    ".": "./index.ts"
-  },
-  "files": [
-    "src",
-    "index.ts"
-  ],
-  "keywords": [
-    "astro-component"
-  ],
-  "scripts": {},
-  "devDependencies": {
-    "astro": "^4.4.9"
-  },
-  "peerDependencies": {
-    "astro": "^4.0.0"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.5.6",
-    "typescript": "^5.3.3"
-  }
+	"name": "@sitebender/components",
+	"version": "2.0.0",
+	"keywords": [
+		"astro-component",
+		"sitebender",
+		"vanilla"
+	],
+	"homepage": "https://github.com/site-bender/components#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/site-bender/components.git"
+	},
+	"license": "MIT",
+	"author": "Charles F. Munat <charles.munat@gmail.com>",
+	"type": "module",
+	"exports": {
+		"./styles/accordion": "./src/components/widgets/Accordion/index.css",
+		"./styles/article": "./src/components/landmarks/Article/index.css",
+		"./styles/author": "./src/components/landmarks/Article/Byline/Author/index.css",
+		"./styles/byline": "./src/components/landmarks/Article/Byline/index.css",
+		"./styles/base": "./src/styles/base.css",
+		"./styles/body": "./src/components/page/Body/index.css",
+		"./styles/footer": "./src/components/landmarks/Footer/index.css",
+		"./styles/header": "./src/components/landmarks/Header/index.css",
+		"./styles/main": "./src/components/landmarks/Main/index.css",
+		"./styles/nav": "./src/components/landmarks/Nav/index.css",
+		"./styles/section": "./src/components/landmarks/Section/index.css",
+		"./styles/subheading": "./src/components/landmarks/Section/Subheading/index.css",
+		"./styles/subtitle": "./src/components/landmarks/Article/Subtitle/index.css",
+		"./styles/theme": "./src/styles/theme.css",
+		"./styles/title": "./src/components/landmarks/Article/Title/index.css",
+		"./styles/title-of-work": "./src/components/metadata/TitleOfWork/index.css",
+		".": "./index.ts"
+	},
+	"files": [
+		"src",
+		"index.ts"
+	],
+	"scripts": {
+		"api": "vercel dev",
+		"astro": "astro",
+		"build": "astro build",
+		"bump": "pnpm version patch --force",
+		"bump:major": "pnpm version major --force",
+		"bump:minor": "pnpm version minor --force",
+		"check:exports": "pnpx find-unused-exports",
+		"check:packages": "pnpx npm-check -u",
+		"dep": "pnpm fmt && pnpm lint && pnpm lint:fix && pnpm check:packages && pnpm build && rm -rf .cache .history dist",
+		"dep:prod": "pnpm dep:dev && vercel deploy",
+		"dev": "astro dev",
+		"fmt": "pnpm prettier . --write",
+		"lint": "pnpx oxlint@latest",
+		"lint:css": "pnpm stylelint \"src/**/*.css\"",
+		"lint:fix": "pnpm stylelint \"src/**/*.css\" --fix",
+		"preview": "astro preview",
+		"pub": "npm publish --access=public",
+		"push": "git add -A && pnpm bump && git push",
+		"start": "astro dev",
+		"test": "pnpm test:int"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.5.6",
+		"typescript": "^5.4.2"
+	},
+	"devDependencies": {
+		"@formatjs/intl-getcanonicallocales": "^2.3.0",
+		"@formatjs/intl-listformat": "^7.5.5",
+		"@formatjs/intl-locale": "^3.4.5",
+		"@types/qrcode": "^1.5.5",
+		"astro": "^4.4.13",
+		"prettier": "^3.2.5",
+		"prettier-plugin-astro": "^0.13.0",
+		"qrcode": "^1.5.3",
+		"stylelint": "^16.2.1",
+		"stylelint-config-standard": "^36.0.0",
+		"temporal-polyfill": "^0.2.3"
+	},
+	"peerDependencies": {
+		"astro": "^4.0.0"
+	}
 }

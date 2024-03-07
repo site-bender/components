@@ -1,0 +1,10 @@
+.byline {
+	font-family: var(--byline-font-family, var(--sb-font-body));
+	font-size: var(--byline-font-size, var(--step-0, 1rem));
+	font-style: var(--byline-font-style, normal);
+	margin: var(--byline-margin, 0);
+}
+
+.byline .author {
+	font-style: var(--byline-author-font-style, normal);
+}

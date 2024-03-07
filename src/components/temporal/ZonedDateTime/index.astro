@@ -1,0 +1,84 @@
+---
+import type { ZonedDateTimeProps } from "./types"
+
+import { Temporal } from "temporal-polyfill"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import {
+	DEFAULT_CALENDAR,
+	DEFAULT_TIME_ZONE,
+	DEFAULT_ZONED_DATE_TIME_OPTIONS,
+} from "../constants"
+import { DEFAULT_LOCALES } from "../../constants"
+
+const {
+	calendar = DEFAULT_CALENDAR,
+	dataset,
+	day,
+	era,
+	eraYear,
+	hour = 0,
+	locales = DEFAULT_LOCALES,
+	microsecond = 0,
+	millisecond = 0,
+	minute = 0,
+	month,
+	monthCode,
+	nanosecond = 0,
+	offset,
+	options,
+	property = "temporal",
+	second = 0,
+	timeZone = DEFAULT_TIME_ZONE,
+	useMicrodata,
+	year,
+	zonedDateTime = Temporal.Now.zonedDateTime(
+		Astro.props.calendar || DEFAULT_CALENDAR,
+		Astro.props.timeZone || DEFAULT_TIME_ZONE,
+	),
+	...attrs
+} = Astro.props as ZonedDateTimeProps
+
+const elementAttrs = mapAttributes(attrs, ["zoned-date-time"])
+
+const val = day
+	? ({
+			calendar,
+			day,
+			hour: Number(hour),
+			microsecond: Number(microsecond),
+			millisecond: Number(millisecond),
+			minute: Number(minute),
+			...(monthCode ? { monthCode } : { month }),
+			nanosecond: Number(nanosecond),
+			second: Number(second),
+			timeZone,
+			...(era ? { era, eraYear } : { year }),
+		} as Temporal.ZonedDateTimeLike)
+	: (zonedDateTime as Temporal.ZonedDateTime)
+
+const value = Temporal.ZonedDateTime.from(val)
+
+const opts = {
+	...DEFAULT_ZONED_DATE_TIME_OPTIONS,
+	...options,
+	calendar: value.calendarId.toString(),
+}
+
+const label = value.toLocaleString(locales, opts)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/DateTime", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...elementAttrs}
+	datetime={value.toJSON()}
+>
+	{label}
+</time>

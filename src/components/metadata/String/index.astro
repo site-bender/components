@@ -1,0 +1,52 @@
+---
+import type { StringProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	as: Element = "span",
+	link = {},
+	property,
+	type = "Text",
+	useMicrodata,
+	value = "",
+	...attrs
+} = Astro.props as StringProps
+
+const attributes = mapAttributes(attrs, ["string"])
+const linkAttrs = mapAttributes(link, ["string-link"])
+
+const text = ((await Astro.slots.render("default")) || value).trim()
+const { href } = link
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, `https://schema.org/${type}`, property]
+	: []
+---
+
+{
+	href ? (
+		<a
+			{...linkAttrs}
+			{href}
+		>
+			<Element
+				{itemprop}
+				{itemscope}
+				{itemtype}
+				{...attributes}
+			>
+				{text}
+			</Element>
+		</a>
+	) : (
+		<Element
+			{itemprop}
+			{itemscope}
+			{itemtype}
+			{...attributes}
+		>
+			{text}
+		</Element>
+	)
+}

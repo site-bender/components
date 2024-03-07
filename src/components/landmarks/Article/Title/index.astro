@@ -1,0 +1,29 @@
+---
+import type { TitleProps } from "./types"
+
+import mapAttributes from "../../../../utilities/mapAttributes"
+
+const {
+	as: Element = "h1",
+	slot: _slot,
+	title,
+	useMicrodata,
+	...attrs
+} = Astro.props as TitleProps
+
+const attributes = mapAttributes(attrs, ["title"])
+
+const text = (await Astro.slots.render("default")) || title
+
+const itemprop = useMicrodata ? "title" : undefined
+---
+
+{
+	text ? (
+		<Element
+			{itemprop}
+			{...attributes}
+			set:html={text}
+		/>
+	) : null
+}

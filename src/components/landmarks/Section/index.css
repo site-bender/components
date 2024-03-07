@@ -1,0 +1,8 @@
+.section {
+	background-color: var(--section-background-color, inherit);
+	color: var(--section-foreground-color, currentColor);
+	margin-block: var(--section-margin-block, 0);
+	margin-inline: var(--section-margin-inline, 0);
+	padding-block: var(--section-padding-block, 1rem);
+	padding-inline: var(--section-padding-inline, 0);
+}

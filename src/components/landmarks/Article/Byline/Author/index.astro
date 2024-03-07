@@ -1,0 +1,58 @@
+---
+import type { AuthorProps } from "./types"
+
+import identity from "../../../../../utilities/identity"
+
+const {
+	as: Element = "span",
+	person,
+	useMicrodata,
+} = Astro.props as AuthorProps
+
+const {
+	name: {
+		family: familyName,
+		given: giveName,
+		middle: additionalName,
+		prefix: honorificPrefix,
+		suffix: honorificSuffix,
+	} = {},
+	url: href,
+} = person
+
+const label = [
+	honorificPrefix,
+	giveName,
+	additionalName,
+	familyName,
+	honorificSuffix,
+]
+	.filter(identity)
+	.join(" ")
+
+const [itemscope, itemtype, itemprop, nameProp] = useMicrodata
+	? [true, "https://schema.org/Person", "author", "name"]
+	: []
+---
+
+<Element
+	class="author"
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	>{
+		href ? (
+			<a {href}>
+				{useMicrodata ? (
+					<meta
+						itemprop="url"
+						content={href}
+					/>
+				) : null}
+				<span itemprop={nameProp}>{label}</span>
+			</a>
+		) : (
+			<span itemprop={nameProp}>{label}</span>
+		)
+	}</Element
+>

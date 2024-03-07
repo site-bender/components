@@ -1,0 +1,29 @@
+---
+import type { SubtitleProps } from "./types"
+
+import mapAttributes from "../../../../utilities/mapAttributes"
+
+const {
+	as: Element = "div",
+	slot: _slot,
+	subtitle,
+	useMicrodata,
+	...attrs
+} = Astro.props as SubtitleProps
+
+const attributes = mapAttributes(attrs, ["subtitle"])
+
+const sub = (await Astro.slots.render("default")) || subtitle
+
+const itemprop = useMicrodata ? "alternativeHeadline" : undefined
+---
+
+{
+	sub ? (
+		<Element
+			{itemprop}
+			{...attributes}
+			set:html={sub}
+		/>
+	) : null
+}

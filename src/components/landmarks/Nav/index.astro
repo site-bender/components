@@ -1,0 +1,22 @@
+---
+import type { NavProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import generateShortId from "../../../utilities/generateShortId"
+
+const {
+	as: Element = "nav",
+	id = generateShortId(),
+	...attrs
+} = Astro.props as NavProps
+
+const attributes = mapAttributes(attrs, ["nav"])
+---
+
+<Element
+	{...attributes}
+	{id}
+>
+	<slot name="microdata" />
+	<slot />
+</Element>

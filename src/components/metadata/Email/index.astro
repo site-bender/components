@@ -1,0 +1,59 @@
+---
+import createMailto from "../../../utilities/createMailto"
+import mapAttributes from "../../../utilities/mapAttributes"
+import type { EmailProps } from "./types"
+
+const {
+	as: Element = "span",
+	email,
+	link = {},
+	mailtoOptions,
+	property = "email",
+	type,
+	useMailto,
+	useMicrodata,
+	...attrs
+} = Astro.props as EmailProps
+
+const attributes = mapAttributes(attrs, ["email"])
+const linkAttrs = mapAttributes(link, ["email-link"])
+
+const emailAddress = (
+	(await Astro.slots.render("default")) ||
+	email ||
+	""
+).trim()
+
+const mailto = link.href ? link.href : createMailto(emailAddress, mailtoOptions)
+
+const [itemscope, itemtype] =
+	useMicrodata && type ? [true, `"https://schema.org/${type}`] : []
+const itemprop = useMicrodata ? property : undefined
+---
+
+{
+	useMailto ? (
+		<a
+			{...linkAttrs}
+			href={mailto}
+		>
+			<Element
+				{itemprop}
+				{itemscope}
+				{itemtype}
+				{...attributes}
+			>
+				{emailAddress}
+			</Element>
+		</a>
+	) : (
+		<Element
+			{itemprop}
+			{itemscope}
+			{itemtype}
+			{...attributes}
+		>
+			{emailAddress}
+		</Element>
+	)
+}

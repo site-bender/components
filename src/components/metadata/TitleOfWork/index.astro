@@ -1,0 +1,61 @@
+---
+import type { TitleOfWorkProps } from "./types"
+
+import type { LinkProps } from "../../../types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import { ITALICIZED_TITLES } from "../constants"
+
+const {
+	as: Element = "span",
+	link = {} as LinkProps,
+	property,
+	title,
+	type = "Book",
+	useMicrodata,
+	...attrs
+} = Astro.props as TitleOfWorkProps
+
+const { label: _label, ...lAttrs } = link
+
+const style = ITALICIZED_TITLES.includes(type) ? "italicized" : "quoted"
+
+const attributes = mapAttributes(attrs, ["title-of-work", style])
+const linkAttrs = mapAttributes(lAttrs, ["title-of-work-link"])
+
+const meta = await Astro.slots.render("meta")
+const label = ((await Astro.slots.render("default")) || "").trim() || title
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, `"https://schema.org/${type}`, property]
+	: []
+
+const innerHtml = itemprop
+	? `<span itemprop=${itemprop}>${label}</span>`
+	: `<span>${label}</span>`
+---
+
+{
+	link.href ? (
+		<a {...linkAttrs}>
+			<Element
+				{itemscope}
+				{itemtype}
+				{...attributes}
+			>
+				<Fragment set:html={innerHtml} />
+				<Fragment set:html={meta} />
+			</Element>
+		</a>
+	) : (
+		<Element
+			{itemscope}
+			{itemtype}
+			{...attributes}
+		>
+			<Fragment set:html={innerHtml} />
+			<Fragment set:html={meta} />
+		</Element>
+	)
+}

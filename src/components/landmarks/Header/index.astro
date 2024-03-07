@@ -1,0 +1,22 @@
+---
+import type { HeaderProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import generateShortId from "../../../utilities/generateShortId"
+
+const {
+	as: Element = "header",
+	id = generateShortId(),
+	...attrs
+} = Astro.props as HeaderProps
+
+const attributes = mapAttributes(attrs, ["header"])
+---
+
+<Element
+	{...attributes}
+	{id}
+>
+	<slot name="microdata" />
+	<slot />
+</Element>

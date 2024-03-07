@@ -1,0 +1,9 @@
+.section .subheading {
+	background-color: var(--section-subheading-background-color, inherit);
+	color: var(--section-subheading-foreground-color, currentColor);
+	font-size: var(--section-subheading-font-size, var(--step-2, 1rem));
+	margin-block: var(--section-subheading-margin-block, 0 var(--space-l));
+	margin-inline: var(--section-subheading-margin-inline, 0);
+	padding-block: var(--section-subheading-padding-block, 0);
+	padding-inline: var(--section-subheading-padding-inline, 0);
+}

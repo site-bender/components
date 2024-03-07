@@ -1,0 +1,11 @@
+---
+import type { MetaProps } from "./types"
+
+type Props = MetaProps
+
+const { metadata = [] } = Astro.props
+
+const meta = Array.isArray(metadata) ? metadata : [metadata]
+---
+
+<span></span>

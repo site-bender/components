@@ -1,0 +1,32 @@
+---
+import { Temporal } from "temporal-polyfill"
+import formatDuration from "../../../utilities/formatDuration"
+import mapAttributes from "../../../utilities/mapAttributes"
+import type { DurationProps } from "./types"
+import type { HTMLAttributes } from "../../../types"
+
+const {
+	duration,
+	property = "duration",
+	useMicrodata,
+	...attrs
+} = Astro.props as DurationProps
+
+const attributes = mapAttributes(attrs as HTMLAttributes, ["duration"])
+
+const d = Temporal.Duration.from(duration)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Duration", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	datetime={d.toJSON()}
+>
+	{formatDuration(d)}
+</time>

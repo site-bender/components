@@ -1,0 +1,18 @@
+---
+import type { BodyProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const { id = generateShortId(), ...attrs } = Astro.props as BodyProps
+
+const attributes = mapAttributes(attrs, ["body"])
+---
+
+<body
+	{...attributes}
+	{id}
+>
+	<slot name="microdata" />
+	<slot />
+</body>

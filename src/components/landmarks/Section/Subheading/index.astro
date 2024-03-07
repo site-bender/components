@@ -1,0 +1,25 @@
+---
+import type { SubheadingProps } from "./types"
+
+import mapAttributes from "../../../../utilities/mapAttributes"
+
+const {
+	as: Element = "h2",
+	slot: _slot,
+	subheading,
+	...attrs
+} = Astro.props as SubheadingProps
+
+const attributes = mapAttributes(attrs, ["subheading"])
+
+const sub = (await Astro.slots.render("default")) || subheading
+---
+
+{
+	sub ? (
+		<Element
+			{...attributes}
+			set:html={sub}
+		/>
+	) : null
+}

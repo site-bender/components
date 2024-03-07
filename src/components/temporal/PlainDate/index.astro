@@ -1,0 +1,62 @@
+---
+import type { PlainDateProps } from "./types"
+import type { DateTimeFormatOptions } from "../../../types"
+
+import { Intl, Temporal } from "temporal-polyfill"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import { DEFAULT_CALENDAR, DEFAULT_DATE_OPTIONS } from "../constants"
+import { DEFAULT_LOCALES } from "../../constants"
+
+const {
+	calendar = DEFAULT_CALENDAR,
+	dataset,
+	day,
+	era,
+	eraYear,
+	locales = DEFAULT_LOCALES,
+	month,
+	monthCode,
+	options = {} as DateTimeFormatOptions,
+	plainDate = Temporal.Now.plainDate(Astro.props.calendar || DEFAULT_CALENDAR),
+	property = "temporal",
+	year,
+	useMicrodata,
+	...attrs
+} = Astro.props as PlainDateProps
+
+const attributes = mapAttributes(attrs, ["plain-date"])
+
+const val = day
+	? ({
+			calendar,
+			day,
+			...(monthCode ? { monthCode } : { month }),
+			...(era ? { era, eraYear } : { year }),
+		} as Temporal.PlainDateLike)
+	: (plainDate as Temporal.PlainDate)
+
+const value = Temporal.PlainDate.from(val)
+
+const opts = {
+	...DEFAULT_DATE_OPTIONS,
+	...options,
+	calendar: value.calendarId.toString(),
+}
+
+const label = new Intl.DateTimeFormat(locales, opts).format(value)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Date", property]
+	: []
+---
+
+<time
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	datetime={value.toJSON()}
+	>{label}</time
+>

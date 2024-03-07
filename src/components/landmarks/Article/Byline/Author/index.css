@@ -1,0 +1,8 @@
+.author a {
+	text-decoration: var(--author-link-text-decoration, none);
+}
+
+.author a:focus,
+.author a:hover {
+	text-decoration: var(--author-link-text-decoration-hover, underline);
+}

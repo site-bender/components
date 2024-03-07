@@ -1,0 +1,40 @@
+---
+import mapAttributes from "../../../utilities/mapAttributes"
+import type { TimeZoneProps } from "./types"
+import { Temporal } from "temporal-polyfill"
+
+const {
+	as: Element = "span",
+	display = "name",
+	localTime = Temporal.Now.instant(),
+	property,
+	timeZone,
+	useMicrodata,
+	...attrs
+} = Astro.props as TimeZoneProps
+
+const attributes = mapAttributes(attrs, ["time-zone"])
+
+const tz = Temporal.TimeZone.from(timeZone) as Temporal.TimeZone
+
+const label =
+	display === "offset"
+		? tz.getOffsetStringFor(localTime)
+		: display === "both"
+			? `${tz.toJSON()} ${tz.getOffsetStringFor(localTime)}`
+			: tz.toJSON()
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, "https://schema.org/Text", property]
+	: []
+---
+
+<Element
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	data-value={tz.toJSON()}
+>
+	{label}
+</Element>

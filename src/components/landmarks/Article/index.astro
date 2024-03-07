@@ -1,0 +1,35 @@
+---
+import type { ArticleProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import generateShortId from "../../../utilities/generateShortId"
+
+const {
+	id = generateShortId(),
+	properties,
+	useMicrodata,
+	...attrs
+} = Astro.props as ArticleProps
+
+const attributes = mapAttributes(attrs, ["article"])
+
+const [itemscope, itemtype] = useMicrodata
+	? [true, "https://schema.org/Article"]
+	: []
+---
+
+<article
+	{...attributes}
+	{id}
+	{itemscope}
+	{itemtype}
+>
+	<header>
+		<slot name="title" />
+		<slot name="subtitle" />
+		<slot name="byline" />
+	</header>
+	<slot />
+	<slot name="microdata" />
+</article>
+../../rdf/Microdata/index.astro

@@ -1,0 +1,27 @@
+.accordion {
+	background-color: var(--accordion-background-color, inherit);
+	border: var(--accordion-border, 1px solid gray);
+	border-radius: var(--accordion-border-radius, 0);
+	color: var(--accordion-foreground-color, currentColor);
+	margin-block: var(--accordion-margin-block, var(--space-m));
+	margin-inline: var(--accordion-margin-inline, 0);
+	padding-block: var(--accordion-padding-block, 0);
+	padding-inline: var(--accordion-padding-inline, 0);
+}
+
+.accordion .summary {
+	font-size: var(--accordion-summary-font-size, var(--step-1));
+	margin-block: var(--accordion-summary-margin-block, 0);
+	margin-inline: var(--accordion-summary-margin-inline, 0);
+	padding-block: var(--accordion-summary-padding-block, 1rem);
+	padding-inline: var(--accordion-summary-padding-inline, 1rem);
+}
+
+.accordion .content {
+	font-size: var(--accordion-content-font-size, var(--step-0));
+	margin-block: var(--accordion-content-margin-block, 0);
+	margin-inline: var(--accordion-content-margin-inline, 0);
+	padding-block: var(--accordion-content-padding-block, 0);
+	padding-inline: var(--accordion-content-padding-inline, 1rem);
+	overflow: hidden;
+}

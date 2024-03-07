@@ -1,0 +1,47 @@
+---
+import type { NumberProps, NumberStyle } from "../Number/types"
+
+import Number from "../Number/index.astro"
+
+const style: NumberStyle = "currency"
+
+const {
+	options: opts = {},
+	property,
+	type = "MonetaryAmount",
+	useMicrodata,
+	...attrs
+} = Astro.props as NumberProps
+
+const options = {
+	currency: "USD",
+	currencyDisplay: "narrowSymbol",
+	style,
+	...opts,
+}
+
+const properties = {
+	type: "MonetaryAmount",
+	currency: opts.currency,
+	value: (await Astro.slots.render("default")) || Astro.props.value,
+}
+
+const value = parseFloat(
+	String(Astro.props.value || properties.value).replaceAll(/[^.0-9]/g, ""),
+)
+
+const [itemscope, itemtype, itemprop] = useMicrodata
+	? [true, `https://schema.org/${type}`, property]
+	: []
+---
+
+<Number
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attrs}
+	data-currency={options.currency}
+	{options}
+	type="MonetaryAmount"
+	{value}
+/>
