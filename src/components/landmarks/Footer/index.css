@@ -1,8 +1,8 @@
 .footer {
 	background-color: var(--footer-background-color, inherit);
 	color: var(--footer-foreground-color, currentColor);
-	grid-column: content-left / content-right;
-	grid-row: footer-top / footer-bottom;
+	grid-column: var(--footer-grid-column, content-left / content-right);
+	grid-row: var(--footer-grid-row, footer-top / footer-bottom);
 	margin-block: var(--footer-margin-block, 0);
 	margin-inline: var(--footer-margin-inline, 0);
 	padding-block: var(--footer-padding-block, 0);

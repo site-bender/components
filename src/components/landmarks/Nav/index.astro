@@ -1,12 +1,13 @@
 ---
 import type { NavProps } from "./types"
 
-import mapAttributes from "../../../utilities/mapAttributes"
 import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	as: Element = "nav",
 	id = generateShortId(),
+	role = "navigation",
 	...attrs
 } = Astro.props as NavProps
 
@@ -16,6 +17,7 @@ const attributes = mapAttributes(attrs, ["nav"])
 <Element
 	{...attributes}
 	{id}
+	{role}
 >
 	<slot name="microdata" />
 	<slot />

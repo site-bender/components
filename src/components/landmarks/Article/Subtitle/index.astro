@@ -1,10 +1,12 @@
 ---
 import type { SubtitleProps } from "./types"
 
+import generateShortId from "../../../../utilities/generateShortId"
 import mapAttributes from "../../../../utilities/mapAttributes"
 
 const {
 	as: Element = "div",
+	id = generateShortId(),
 	slot: _slot,
 	subtitle,
 	useMicrodata,
@@ -23,6 +25,7 @@ const itemprop = useMicrodata ? "alternativeHeadline" : undefined
 		<Element
 			{itemprop}
 			{...attributes}
+			{id}
 			set:html={sub}
 		/>
 	) : null

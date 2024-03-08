@@ -1,0 +1,4 @@
+a[href^="mailto:"]::before {
+	content: "\2709";
+	margin-right: 0.25rem;
+}

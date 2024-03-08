@@ -3,6 +3,7 @@ import type { PlainDateTimeProps } from "./types"
 
 import { Intl, Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
 import { DEFAULT_CALENDAR, DEFAULT_DATE_TIME_OPTIONS } from "../constants"
@@ -15,6 +16,7 @@ const {
 	era,
 	eraYear,
 	hour = 0,
+	id = generateShortId(),
 	locales = DEFAULT_LOCALES,
 	microsecond = 0,
 	millisecond = 0,
@@ -70,6 +72,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={value.toJSON()}
 >
 	{label}

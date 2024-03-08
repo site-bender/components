@@ -1,10 +1,15 @@
 ---
-import mapAttributes from "../../../utilities/mapAttributes"
 import type { InstantProps } from "./types"
-import { DEFAULT_LOCALES } from "../../constants"
+
 import { Intl, Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import { DEFAULT_LOCALES } from "../../constants"
+
 const {
+	id = generateShortId(),
 	instant,
 	locales = DEFAULT_LOCALES,
 	options = {},
@@ -34,6 +39,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={value.toJSON()}
 >
 	{label}

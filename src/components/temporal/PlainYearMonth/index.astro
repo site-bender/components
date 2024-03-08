@@ -3,6 +3,7 @@ import type { PlainYearMonthProps } from "./types"
 
 import { Intl, Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
 import { DEFAULT_CALENDAR, DEFAULT_YEAR_MONTH_OPTIONS } from "../constants"
@@ -13,6 +14,7 @@ const {
 	dataset,
 	era,
 	eraYear,
+	id = generateShortId(),
 	locales = DEFAULT_LOCALES,
 	month,
 	monthCode,
@@ -57,6 +59,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={value.toJSON()}
 >
 	{label}

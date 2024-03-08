@@ -1,12 +1,11 @@
 ---
 import type { ArticleProps } from "./types"
 
-import mapAttributes from "../../../utilities/mapAttributes"
 import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	id = generateShortId(),
-	properties,
 	useMicrodata,
 	...attrs
 } = Astro.props as ArticleProps
@@ -29,7 +28,6 @@ const [itemscope, itemtype] = useMicrodata
 		<slot name="subtitle" />
 		<slot name="byline" />
 	</header>
-	<slot />
 	<slot name="microdata" />
+	<slot />
 </article>
-../../rdf/Microdata/index.astro

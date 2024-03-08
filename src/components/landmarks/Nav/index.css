@@ -1,8 +1,8 @@
 .nav {
 	background-color: var(--nav-background-color, inherit);
 	color: var(--nav-foreground-color, currentColor);
-	grid-column: content-left / content-right;
-	grid-row: nav-top / nav-bottom;
+	grid-column: var(--nav-grid-column, content-left / content-right);
+	grid-row: var(--nav-grid-row, nav-top / nav-bottom);
 	margin-block: var(--nav-margin-block, 0);
 	margin-inline: var(--nav-margin-inline, 0);
 	padding-block: var(--nav-padding-block, 0);

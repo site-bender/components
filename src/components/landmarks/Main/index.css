@@ -1,8 +1,8 @@
 .main {
 	background-color: var(--main-background-color, inherit);
 	color: var(--main-foreground-color, currentColor);
-	grid-column: content-left / content-right;
-	grid-row: main-top / main-bottom;
+	grid-column: var(--main-grid-column, content-left / content-right);
+	grid-row: var(--main-grid-row, main-top / main-bottom);
 	margin-block: var(--main-margin-block, 0);
 	margin-inline: var(--main-margin-inline, 0);
 	padding-block: var(--main-padding-block, 0);

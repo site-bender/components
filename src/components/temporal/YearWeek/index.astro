@@ -3,10 +3,18 @@ import type { YearWeekProps } from "./types"
 
 import { Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
-const { date, property, useMicrodata, week, year, ...attrs } =
-	Astro.props as YearWeekProps
+const {
+	date,
+	id = generateShortId(),
+	property,
+	useMicrodata,
+	week,
+	year,
+	...attrs
+} = Astro.props as YearWeekProps
 
 const attributes = mapAttributes(attrs, ["year-week"])
 
@@ -30,6 +38,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={label}
 >
 	{label}

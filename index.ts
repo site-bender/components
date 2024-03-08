@@ -18,7 +18,7 @@ export { default as Title } from "./src/components/landmarks/Article/Title/index
 
 // Metadata
 export { default as Boolean } from "./src/components/metadata/Boolean/index.astro"
-export { default as Email } from "./src/components/metadata/Email/index.astro"
+export { default as EmailAddress } from "./src/components/metadata/EmailAddress/index.astro"
 export { default as Integer } from "./src/components/metadata/Integer/index.astro"
 export { default as MonetaryAmount } from "./src/components/metadata/MonetaryAmount/index.astro"
 export { default as Number } from "./src/components/metadata/Number/index.astro"

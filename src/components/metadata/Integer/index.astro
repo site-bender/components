@@ -1,14 +1,21 @@
 ---
 import type { NumberProps } from "../Number/types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
 import Number from "../Number/index.astro"
 
 const {
+	id = generateShortId(),
 	property,
 	type: _type,
 	useMicrodata,
 	value: val,
 	...attrs
 } = Astro.props as NumberProps
+
+const attributes = mapAttributes(attrs, ["integer"])
 
 const value = Math.round(
 	typeof val === "number" ? val : parseInt(String(val), 10),
@@ -23,7 +30,8 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemprop}
 	{itemscope}
 	{itemtype}
-	{...attrs}
+	{...attributes}
+	{id}
 	type="Integer"
 	{value}
 />

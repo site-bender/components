@@ -1,11 +1,14 @@
 ---
-import createMailto from "../../../utilities/createMailto"
-import mapAttributes from "../../../utilities/mapAttributes"
 import type { EmailProps } from "./types"
+
+import createMailto from "../../../utilities/createMailto"
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	as: Element = "span",
 	email,
+	id = generateShortId(),
 	link = {},
 	mailtoOptions,
 	property = "email",
@@ -42,6 +45,7 @@ const itemprop = useMicrodata ? property : undefined
 				{itemscope}
 				{itemtype}
 				{...attributes}
+				{id}
 			>
 				{emailAddress}
 			</Element>
@@ -52,6 +56,7 @@ const itemprop = useMicrodata ? property : undefined
 			{itemscope}
 			{itemtype}
 			{...attributes}
+			{id}
 		>
 			{emailAddress}
 		</Element>

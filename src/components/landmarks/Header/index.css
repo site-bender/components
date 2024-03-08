@@ -1,8 +1,8 @@
 .header {
 	background-color: var(--header-background-color, inherit);
 	color: var(--header-foreground-color, currentColor);
-	grid-column: content-left / content-right;
-	grid-row: header-top / header-bottom;
+	grid-column: var(--header-grid-column, content-left / content-right);
+	grid-row: var(--header-grid-row, header-top / header-bottom);
 	margin-block: var(--header-margin-block, 0);
 	margin-inline: var(--header-margin-inline, 0);
 	padding-block: var(--header-padding-block, 0);

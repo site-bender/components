@@ -23,7 +23,6 @@ export type ZonedDateTimeProps = Override<
 		nanosecond?: number | string | undefined
 		offset?: string
 		options?: DateTimeFormatOptions | undefined
-		property?: string | undefined
 		second?: number | string | undefined
 		timeZone?: string | Temporal.TimeZoneLike | undefined
 		year?: number | string | undefined

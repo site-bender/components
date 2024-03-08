@@ -1,9 +1,12 @@
 ---
-import mapAttributes from "../../../utilities/mapAttributes"
 import type { BooleanProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	as: Element = "span",
+	id = generateShortId(),
 	labelFalse = "",
 	labelTrue,
 	property,
@@ -25,12 +28,12 @@ const itemprop = useMicrodata ? property : undefined
 {
 	label ? (
 		<Element
-			{itemprop}
 			{itemscope}
 			{itemtype}
 			{...attributes}
+			{id}
 		>
-			{label}
+			<span {itemprop}>{label}</span>
 		</Element>
 	) : null
 }

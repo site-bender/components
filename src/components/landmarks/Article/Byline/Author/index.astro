@@ -1,13 +1,19 @@
 ---
 import type { AuthorProps } from "./types"
 
-import identity from "../../../../../utilities/identity"
+import compact from "../../../../../utilities/compact"
+import generateShortId from "../../../../../utilities/generateShortId"
+import mapAttributes from "../../../../../utilities/mapAttributes"
 
 const {
 	as: Element = "span",
+	id = generateShortId(),
 	person,
 	useMicrodata,
+	...attrs
 } = Astro.props as AuthorProps
+
+const attributes = mapAttributes(attrs, ["author"])
 
 const {
 	name: {
@@ -20,15 +26,13 @@ const {
 	url: href,
 } = person
 
-const label = [
+const label = compact([
 	honorificPrefix,
 	giveName,
 	additionalName,
 	familyName,
 	honorificSuffix,
-]
-	.filter(identity)
-	.join(" ")
+]).join(" ")
 
 const [itemscope, itemtype, itemprop, nameProp] = useMicrodata
 	? [true, "https://schema.org/Person", "author", "name"]
@@ -36,10 +40,11 @@ const [itemscope, itemtype, itemprop, nameProp] = useMicrodata
 ---
 
 <Element
-	class="author"
 	{itemprop}
 	{itemscope}
 	{itemtype}
+	{id}
+	{...attributes}
 	>{
 		href ? (
 			<a {href}>

@@ -1,17 +1,23 @@
 ---
 import type { NumberProps, NumberStyle } from "../Number/types"
 
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
 import Number from "../Number/index.astro"
 
 const style: NumberStyle = "currency"
 
 const {
+	id = generateShortId(),
 	options: opts = {},
 	property,
 	type = "MonetaryAmount",
 	useMicrodata,
 	...attrs
 } = Astro.props as NumberProps
+
+const attributes = mapAttributes(attrs, ["monetary-amount"])
 
 const options = {
 	currency: "USD",
@@ -39,7 +45,8 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemprop}
 	{itemscope}
 	{itemtype}
-	{...attrs}
+	{...attributes}
+	{id}
 	data-currency={options.currency}
 	{options}
 	type="MonetaryAmount"

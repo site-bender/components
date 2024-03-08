@@ -4,7 +4,9 @@ import type { BylineProps } from "./types"
 import { Temporal } from "temporal-polyfill"
 
 import getConjunction from "../../../../utilities/getConjunction"
+import generateShortId from "../../../../utilities/generateShortId"
 import mapAttributes from "../../../../utilities/mapAttributes"
+
 import Author from "./Author/index.astro"
 import PlainDate from "../../../temporal/PlainDate/index.astro"
 
@@ -13,6 +15,7 @@ const {
 	as: Element = "div",
 	authors,
 	datePublished,
+	id = generateShortId(),
 	slot: _slot,
 	useMicrodata,
 	...attrs
@@ -27,7 +30,10 @@ const itemprop = useMicrodata ? "datePublished" : undefined
 
 {
 	authors ? (
-		<Element {...attributes}>
+		<Element
+			{...attributes}
+			{id}
+		>
 			{datePublished ? (
 				<PlainDate
 					{itemprop}

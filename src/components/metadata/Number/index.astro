@@ -3,12 +3,14 @@ import type { NumberProps } from "./types"
 
 import type { LinkProps } from "../../../types"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 import toTrainCase from "../../../utilities/toTrainCase"
 
 import { DEFAULT_LOCALES } from "../../constants"
 
 const {
+	id = generateShortId(),
 	link = {} as Partial<LinkProps>,
 	locales = DEFAULT_LOCALES,
 	options = {},
@@ -55,6 +57,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 				{itemscope}
 				{itemtype}
 				{...attributes}
+				{id}
 				set:html={num}
 			/>
 		</a>
@@ -64,6 +67,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 			{itemscope}
 			{itemtype}
 			{...attributes}
+			{id}
 			set:html={num}
 		/>
 	)

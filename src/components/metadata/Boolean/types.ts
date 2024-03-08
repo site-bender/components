@@ -6,7 +6,6 @@ export type BooleanProps = Override<
 	{
 		labelFalse?: string | undefined
 		labelTrue: string
-		property?: string | undefined
 		type?: string | undefined
 		value: boolean
 	}

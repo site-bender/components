@@ -17,7 +17,6 @@ export type PlainYearMonthProps = Override<
 		monthCode?: string | undefined
 		options?: DateTimeFormatOptions | undefined
 		plainYearMonth?: string | Temporal.PlainYearMonthLike | undefined
-		property?: string | undefined
 		year?: number | string | undefined
 	} & Formattable
 >

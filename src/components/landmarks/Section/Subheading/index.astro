@@ -1,10 +1,12 @@
 ---
 import type { SubheadingProps } from "./types"
 
+import generateShortId from "../../../../utilities/generateShortId"
 import mapAttributes from "../../../../utilities/mapAttributes"
 
 const {
 	as: Element = "h2",
+	id = generateShortId(),
 	slot: _slot,
 	subheading,
 	...attrs
@@ -19,6 +21,7 @@ const sub = (await Astro.slots.render("default")) || subheading
 	sub ? (
 		<Element
 			{...attributes}
+			{id}
 			set:html={sub}
 		/>
 	) : null

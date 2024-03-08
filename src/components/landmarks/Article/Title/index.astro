@@ -1,10 +1,12 @@
 ---
 import type { TitleProps } from "./types"
 
+import generateShortId from "../../../../utilities/generateShortId"
 import mapAttributes from "../../../../utilities/mapAttributes"
 
 const {
 	as: Element = "h1",
+	id = generateShortId(),
 	slot: _slot,
 	title,
 	useMicrodata,
@@ -15,7 +17,7 @@ const attributes = mapAttributes(attrs, ["title"])
 
 const text = (await Astro.slots.render("default")) || title
 
-const itemprop = useMicrodata ? "title" : undefined
+const itemprop = useMicrodata ? "name" : undefined
 ---
 
 {
@@ -23,6 +25,7 @@ const itemprop = useMicrodata ? "title" : undefined
 		<Element
 			{itemprop}
 			{...attributes}
+			{id}
 			set:html={text}
 		/>
 	) : null

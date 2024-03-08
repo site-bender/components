@@ -4,6 +4,7 @@ import type { DateTimeFormatOptions } from "../../../types"
 
 import { Intl, Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
 import { DEFAULT_CALENDAR, DEFAULT_MONTH_DAY_OPTIONS } from "../constants"
@@ -12,6 +13,7 @@ import { DEFAULT_LOCALES } from "../../constants"
 const {
 	calendar = DEFAULT_CALENDAR,
 	day,
+	id = generateShortId(),
 	locales = DEFAULT_LOCALES,
 	month,
 	monthCode,
@@ -56,6 +58,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={value.toString()}
 >
 	{label}

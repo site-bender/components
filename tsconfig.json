@@ -19,17 +19,11 @@
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"paths": {
-			"~components/*": ["src/components/*"],
-			"~constants": ["src/constants"],
-			"~types": ["src/types"],
-			"~utilities/*": ["src/utilities/*"]
-		},
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"
 	},
-	"include": ["src/**/*", "temp/jsx.ts"],
+	"include": ["src/**/*"],
 	"exclude": ["node_modules", "temp"]
 }

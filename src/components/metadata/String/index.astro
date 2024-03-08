@@ -1,10 +1,12 @@
 ---
 import type { StringProps } from "./types"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	as: Element = "span",
+	id = generateShortId(),
 	link = {},
 	property,
 	type = "Text",
@@ -13,11 +15,12 @@ const {
 	...attrs
 } = Astro.props as StringProps
 
+const { href, ...lAttrs } = link
+
 const attributes = mapAttributes(attrs, ["string"])
-const linkAttrs = mapAttributes(link, ["string-link"])
+const linkAttrs = mapAttributes(lAttrs, ["string-link"])
 
 const text = ((await Astro.slots.render("default")) || value).trim()
-const { href } = link
 
 const [itemscope, itemtype, itemprop] = useMicrodata
 	? [true, `https://schema.org/${type}`, property]
@@ -35,6 +38,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 				{itemscope}
 				{itemtype}
 				{...attributes}
+				{id}
 			>
 				{text}
 			</Element>
@@ -45,6 +49,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 			{itemscope}
 			{itemtype}
 			{...attributes}
+			{id}
 		>
 			{text}
 		</Element>

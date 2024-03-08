@@ -1,12 +1,16 @@
 ---
-import { Temporal } from "temporal-polyfill"
-import formatDuration from "../../../utilities/formatDuration"
-import mapAttributes from "../../../utilities/mapAttributes"
 import type { DurationProps } from "./types"
 import type { HTMLAttributes } from "../../../types"
 
+import { Temporal } from "temporal-polyfill"
+
+import formatDuration from "../../../utilities/formatDuration"
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
 const {
 	duration,
+	id = generateShortId(),
 	property = "duration",
 	useMicrodata,
 	...attrs
@@ -26,6 +30,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={d.toJSON()}
 >
 	{formatDuration(d)}

@@ -1,11 +1,15 @@
 ---
-import mapAttributes from "../../../utilities/mapAttributes"
 import type { TimeZoneProps } from "./types"
+
 import { Temporal } from "temporal-polyfill"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
 
 const {
 	as: Element = "span",
 	display = "name",
+	id = generateShortId(),
 	localTime = Temporal.Now.instant(),
 	property,
 	timeZone,
@@ -34,6 +38,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	data-value={tz.toJSON()}
 >
 	{label}

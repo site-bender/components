@@ -3,8 +3,6 @@
 ---
 
 <script>
-	type WithOpenHeight = HTMLElement & { sbOpenHeight?: number }
-
 	function toggleAccordion(event) {
 		event.preventDefault()
 
@@ -14,8 +12,8 @@
 
 		const summary = event.target
 		const accordion = summary.closest("details")
-		const content = accordion.querySelector(".xx-accordion-content")
-		const openHeight = summary.xxOpenHeight
+		const content = accordion.querySelector(".accordion.content")
+		const openHeight = summary.openHeight
 
 		if (!(summary && accordion && content)) {
 			return
@@ -68,10 +66,12 @@
 
 		for (let node of nodes) {
 			const summary = node.querySelector("summary")
-			const content = node.querySelector(".accordion .content")
+			const content = node.querySelector(".accordion.content")
 
-			if (summary && content) {
-				;(summary as WithOpenHeight).sbOpenHeight = content.clientHeight
+			if (content) {
+				node.open = true
+				summary.openHeight = content.clientHeight
+				node.open = false
 			}
 
 			summary?.addEventListener("click", toggleAccordion)

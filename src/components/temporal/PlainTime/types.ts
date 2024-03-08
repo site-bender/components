@@ -18,7 +18,6 @@ export type PlainTimeProps = Override<
 		nanosecond?: number | string | undefined
 		options?: DateTimeFormatOptions | undefined
 		plainTime?: string | Temporal.PlainTimeLike | undefined
-		property?: string | undefined
 		second?: number | string | undefined
 	} & Formattable
 >

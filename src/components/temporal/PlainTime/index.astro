@@ -1,16 +1,19 @@
 ---
-import type { DateTimeFormatOptions, PlainTimeProps } from "../../../types"
+import type { PlainTimeProps } from "./types"
+import type { DateTimeFormatOptions } from "../../../types"
 
 import { Intl, Temporal } from "temporal-polyfill"
 
+import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
 import { DEFAULT_TIME_OPTIONS } from "../constants"
 import { DEFAULT_LOCALES } from "../../constants"
 
 const {
-	dataset,
+	calendar = "iso8601",
 	hour,
+	id = generateShortId(),
 	locales = DEFAULT_LOCALES,
 	microsecond = 0,
 	millisecond = 0,
@@ -41,8 +44,8 @@ const value = Temporal.PlainTime.from(val)
 
 const opts = {
 	...DEFAULT_TIME_OPTIONS,
-	calendar: "iso8601",
 	...options,
+	calendar: Temporal.Calendar.from(calendar),
 }
 
 const label = new Intl.DateTimeFormat(locales, opts).format(value)
@@ -57,6 +60,7 @@ const [itemscope, itemtype, itemprop] = useMicrodata
 	{itemscope}
 	{itemtype}
 	{...attributes}
+	{id}
 	datetime={value.toJSON()}
 >
 	{label}

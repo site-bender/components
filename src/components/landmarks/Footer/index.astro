@@ -2,11 +2,11 @@
 import type { FooterProps } from "./types"
 
 import mapAttributes from "../../../utilities/mapAttributes"
-import generateShortId from "../../../utilities/generateShortId"
 
 const {
 	as: Element = "footer",
-	id = generateShortId(),
+	id = "footer",
+	role = "contentinfo",
 	...attrs
 } = Astro.props as FooterProps
 
@@ -16,6 +16,7 @@ const attributes = mapAttributes(attrs, ["footer"])
 <Element
 	{...attributes}
 	{id}
+	{role}
 >
 	<slot name="microdata" />
 	<slot />
