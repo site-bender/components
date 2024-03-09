@@ -1,0 +1,31 @@
+.pull-quote {
+	background-color: var(--pull-quote-background-color, inherit);
+	border: var(--pull-quote-border, none);
+	border-radius: 5px;
+	color: var(--pull-quote-foreground-color, currentColor);
+	display: var(--pull-quote-display, flex);
+	flex-direction: column;
+	font-family: var(--pull-quote-font-family, var(--font-titles));
+	font-size: var(--pull-quote-font-size, var(--step-1, 1.25rem));
+	font-weight: 500;
+	justify-content: space-evenly;
+	margin-block: var(--pull-quote-margin-block, var(--space-s, 1rem));
+	margin-inline: var(--pull-quote-margin-inline, 0);
+	padding-block: var(--pull-quote-padding-block, 1.5rem);
+	padding-inline: var(--pull-quote-padding-inline, 2rem);
+}
+
+.pull-quote-blockquote {
+	margin: 0;
+}
+
+.pull-quote .pull-quote-figcaption {
+	align-items: center;
+	color: var(--color-gray-9, #131315);
+	display: var(--pull-quote-author-display, flex);
+	font-family: var(--pull-quote-author-font-family, var(--font-titles));
+	font-size: var(--pull-quote-author-font-size, var(--step-0, 1rem));
+	font-style: var(--pull-quote-author-font-style, italic);
+	justify-content: flex-end;
+	text-align: var(--pull-quote-author-text-align, right);
+}

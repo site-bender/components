@@ -1,0 +1,35 @@
+---
+import type { CardProps } from "./types"
+
+import generateShortId from "../../../../utilities/generateShortId"
+import mapAttributes from "../../../../utilities/mapAttributes"
+
+const {
+	as: Element = "section",
+	id = generateShortId(),
+	isInvertible,
+	property,
+	type,
+	useMicrodata,
+	...attrs
+} = Astro.props as CardProps
+
+const attributes = mapAttributes(
+	attrs,
+	isInvertible ? ["card", "allow-invert"] : ["card"],
+)
+
+const [itemscope, itemtype] =
+	useMicrodata && type ? [true, `https://schema.org/${type}`] : []
+const itemprop = useMicrodata ? property : undefined
+---
+
+<Element
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	{id}
+>
+	<slot />
+</Element>

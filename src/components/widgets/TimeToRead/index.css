@@ -1,0 +1,15 @@
+.time-to-read {
+	background-color: var(--time-to-read-background-color, inherit);
+	border: var(--time-to-read-border, none);
+	border-radius: var(--time-to-read-border-radius, 5px);
+	color: var(--time-to-read-foreground-color, currentColor);
+	font-size: var(--time-to-read-font-size, var(--step-0));
+	margin-block: var(--time-to-read-margin-block, 0 var(--space-m, 1.5rem));
+	margin-inline: var(--time-to-read-margin-inline, 0);
+	padding-block: var(--time-to-read-padding-block, 0.5rem);
+	padding-inline: var(--time-to-read-padding-inline, 0);
+}
+
+.time-to-read > p {
+	margin: 0;
+}

@@ -1,0 +1,71 @@
+---
+import type { TimeToReadProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+import formatOrdinal from "../../../utilities/formatOrdinal"
+import formatTimeToRead from "../../../utilities/formatTimeToRead"
+import fromISODuration from "../../../utilities/fromISODuration"
+
+const {
+	header = {},
+	hideClass = "sr-only",
+	id = generateShortId(),
+	readability,
+	timeRequired: tr,
+	title = "Time to read",
+	wordCount,
+	...attrs
+} = Astro.props as TimeToReadProps
+
+const timeRequired = tr ? fromISODuration(tr) : {}
+
+const { as: HElement = "h2", ...hAttrs } = header
+const headerId = generateShortId()
+
+const headerAttrs = mapAttributes(hAttrs, ["time-to-read-heading", hideClass])
+const ttrAttrs = mapAttributes(attrs, ["time-to-read"])
+---
+
+{
+	tr || wordCount || readability ? (
+		<section
+			aria-labelledby={headerId}
+			{...ttrAttrs}
+			{id}
+		>
+			<HElement
+				{...headerAttrs}
+				id={headerId}
+			>
+				{title}
+			</HElement>
+			<p>
+				{tr ? (
+					<time
+						class="time-to-read-time"
+						datetime={`PT${timeRequired.minutes || 0}M${
+							timeRequired.seconds || 0
+						}S`}
+					>
+						{formatTimeToRead(timeRequired)}
+					</time>
+				) : null}
+				{wordCount ? (
+					<>
+						{timeRequired ? ", " : ""}
+						<span class="time-to-read-word-count">{wordCount} words</span>
+					</>
+				) : null}
+				{readability ? (
+					<>
+						{wordCount || timeRequired ? ", " : ""}
+						<span class="time-to-read-readability">
+							{formatOrdinal(readability)} grade
+						</span>
+					</>
+				) : null}
+			</p>
+		</section>
+	) : null
+}

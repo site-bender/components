@@ -1,0 +1,53 @@
+---
+import type { ImageSource, ImageType, PictureProps } from "../../../types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	alt = "",
+	filename,
+	height,
+	loading = "lazy",
+	src,
+	sources = [],
+	width = 768,
+	...attrs
+} = Astro.props as PictureProps
+
+const attributes = mapAttributes(attrs, ["optimized-img"])
+
+function getSrcset(
+	filename: string,
+	sizes: Array<number>,
+	types: Array<ImageType>,
+	media: string,
+) {
+	return types.map((type) => {
+		const ext = type.split("/").at(-1)
+		const mediaAttr = media ? ` media="${media}"` : ""
+		const srcset = sizes
+			.map(
+				(width, idx) =>
+					`/images/optimized/${width}/${filename}.${ext} ${idx + 1}x`,
+			)
+			.join(", ")
+
+		return `<source${mediaAttr} srcset="${srcset}" type="${type}">`
+	})
+}
+---
+
+<picture>
+	{
+		sources.map(({ media, sizes, types } = {} as ImageSource) => (
+			<Fragment set:html={getSrcset(filename, sizes, types, media)} />
+		))
+	}
+	<img
+		{...attributes}
+		{alt}
+		{height}
+		{src}
+		{width}
+	/>
+</picture>

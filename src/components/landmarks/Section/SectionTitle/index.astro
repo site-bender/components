@@ -1,5 +1,5 @@
 ---
-import type { SubheadingProps } from "./types"
+import type { SectionTitleProps } from "./types"
 
 import generateShortId from "../../../../utilities/generateShortId"
 import mapAttributes from "../../../../utilities/mapAttributes"
@@ -10,7 +10,7 @@ const {
 	slot: _slot,
 	subheading,
 	...attrs
-} = Astro.props as SubheadingProps
+} = Astro.props as SectionTitleProps
 
 const attributes = mapAttributes(attrs, ["subheading"])
 

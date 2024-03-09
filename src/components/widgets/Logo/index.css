@@ -1,0 +1,9 @@
+.logo {
+	background-color: var(--logo-background-color, inherit);
+	color: var(--logo-foreground-color, currentColor);
+	font-size: var(--logo-font-size, var(--step-2));
+}
+
+a:has(.logo) {
+	text-decoration: (var(--logo-link-text-decoration, none));
+}

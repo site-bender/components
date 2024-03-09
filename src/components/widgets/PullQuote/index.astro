@@ -1,0 +1,49 @@
+---
+import type { PullQuoteProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	author: auth,
+	blockquote = {},
+	figcaption = {},
+	id = generateShortId(),
+	property = "author",
+	type,
+	useMicrodata,
+	...attrs
+} = Astro.props as PullQuoteProps
+
+const attributes = mapAttributes(attrs, ["pull-quote"])
+const blockquoteAttrs = mapAttributes(blockquote, ["pull-quote-blockquote"])
+const figcaptionAttrs = mapAttributes(figcaption, ["pull-quote-figcaption"])
+
+const quote = await Astro.slots.render("default")
+const author = (await Astro.slots.render("author")) || auth
+
+const [itemscope, itemtype] =
+	useMicrodata && type ? [true, `"https://schema.org/${type}`] : []
+const itemprop = useMicrodata ? property : undefined
+---
+
+<figure
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	{id}
+>
+	<blockquote
+		{...blockquoteAttrs}
+		set:html={quote}
+	/>
+	{
+		author ? (
+			<figcaption
+				{itemprop}
+				{...figcaptionAttrs}
+				set:html={author}
+			/>
+		) : null
+	}
+</figure>

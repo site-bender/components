@@ -4,12 +4,22 @@ import type { BodyProps } from "./types"
 import generateShortId from "../../../utilities/generateShortId"
 import mapAttributes from "../../../utilities/mapAttributes"
 
-const { id = generateShortId(), ...attrs } = Astro.props as BodyProps
+const {
+	id = generateShortId(),
+	useMicrodata,
+	...attrs
+} = Astro.props as BodyProps
 
 const attributes = mapAttributes(attrs, ["body"])
+
+const [itemscope, itemtype] = useMicrodata
+	? [true, "https://schema.org/WebPage"]
+	: []
 ---
 
 <body
+	{itemscope}
+	{itemtype}
 	{...attributes}
 	{id}
 >

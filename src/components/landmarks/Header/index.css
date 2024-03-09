@@ -1,10 +1,13 @@
 .header {
 	background-color: var(--header-background-color, inherit);
 	color: var(--header-foreground-color, currentColor);
-	grid-column: var(--header-grid-column, content-left / content-right);
+	grid-column: var(--header-grid-column, viewport-left / viewport-right);
 	grid-row: var(--header-grid-row, header-top / header-bottom);
 	margin-block: var(--header-margin-block, 0);
 	margin-inline: var(--header-margin-inline, 0);
-	padding-block: var(--header-padding-block, 0);
-	padding-inline: var(--header-padding-inline, 0);
+	padding-block: var(
+		--header-padding-block,
+		var(--page-segment-padding-block, var(--space-s))
+	);
+	padding-inline: var(--header-padding-inline, var(--page-padding-inline, 2vw));
 }

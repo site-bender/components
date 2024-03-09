@@ -1,0 +1,45 @@
+---
+import type { CopyrightProps } from "./types"
+import type { OrganizationLeaf, PersonLeaf } from "../../../types/schema.org"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import compact from "../../../utilities/compact"
+
+const {
+	as: Element = "div",
+	copyrightHolder = {} as OrganizationLeaf | PersonLeaf,
+	copyrightNotice = "",
+	copyrightYear,
+	name = "",
+	useMicrodata,
+	useSymbol,
+	...attrs
+} = Astro.props as CopyrightProps
+
+const attributes = mapAttributes(attrs, ["copyright"])
+const copy = useSymbol ? "©" : "Copyright"
+const notice = copyrightNotice ? `. ${copyrightNotice}` : ""
+
+const { legalName } = copyrightHolder as OrganizationLeaf
+const {
+	additionalName,
+	familyName,
+	givenName,
+	honorificPrefix,
+	honorificSuffix,
+} = copyrightHolder as PersonLeaf
+
+const holder =
+	name ||
+	legalName ||
+	compact([
+		honorificPrefix,
+		givenName,
+		additionalName,
+		familyName,
+		honorificSuffix,
+	]).join(" ")
+---
+
+<Element {...attributes}>{copy}{" "}{copyrightYear} by {holder}{notice}</Element
+>

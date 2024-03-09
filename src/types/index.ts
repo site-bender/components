@@ -26,6 +26,19 @@ export type Calendar =
 	| "persian"
 	| "roc"
 
+export type DurationOptions = {
+	days?: number | undefined
+	hours?: number | undefined
+	microseconds?: number | undefined
+	milliseconds?: number | undefined
+	minutes?: number | undefined
+	months?: number | undefined
+	nanoseconds?: number | undefined
+	seconds?: number | undefined
+	weeks?: number | undefined
+	years?: number | undefined
+}
+
 export type Formattable = {
 	format?: string | undefined
 }
@@ -62,10 +75,83 @@ export type Name = {
 	suffix?: string | undefined
 }
 
+export type Frontmatter = {
+	anchor?: string | undefined
+	aria?: string | undefined
+	blurb?: string | undefined
+	caption?: string | undefined
+	client?: string | undefined
+	content?: Array<string> | undefined
+	description?: string | undefined
+	label?: string | undefined
+	layout?: string | undefined
+	page?: string | undefined
+	publishedOn?: string | undefined
+	rel?: string | undefined
+	tags?: Array<string> | undefined
+	thumbnail?: string | undefined
+	title?: string | undefined
+}
+
+export type MDXInstance<T> = {
+	compiledContent: () => string
+	file: string
+	frontmatter: T
+	publishedOn?: string | undefined
+	rawContent: () => string
+	title?: string | undefined
+	url: string | undefined
+}
+
 export type Person = {
 	name: Name
 	url?: string | undefined
 }
+
+export type CreatePath = (
+	filename: string,
+	size: string,
+	type: string,
+	index: number,
+) => string
+
+export type ImageMediaType =
+	| "image/jpeg"
+	| "image/png"
+	| "image/webp"
+	| "image/avif"
+	| "image/svg"
+
+export type ImageType = "jpeg" | "png" | "webp" | "avif" | "svg"
+
+export type ImageSource = {
+	media?: string | undefined
+	sizes: Array<number>
+	types: Array<ImageType>
+}
+
+export type Description = Override<
+	HTMLAttributes,
+	{
+		description: string
+	}
+>
+
+export type PictureProps = Override<
+	HTMLAttributes,
+	{
+		alt: string
+		createPath?: CreatePath | undefined
+		description?: Description | undefined
+		filename: string
+		height?: number | undefined
+		link?: Partial<LinkProps> | undefined
+		loading?: "eager" | "lazy" | undefined
+		sources?: Array<ImageSource> | undefined
+		src: string
+		width: number
+	}
+>
 
 export type DateTimeFormatOptions = {
 	calendar: string | Temporal.CalendarProtocol
@@ -735,7 +821,7 @@ export type BaseAttributes = Override<
 // 	validation?: string | undefined
 // }
 
-// export type CcSvgProps = {
+// export type CCSvgProps = {
 // 	fill: string
 // 	license?: string | undefined
 // 	size: string

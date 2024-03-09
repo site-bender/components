@@ -1,10 +1,20 @@
 .footer {
+	align-items: center;
 	background-color: var(--footer-background-color, inherit);
 	color: var(--footer-foreground-color, currentColor);
-	grid-column: var(--footer-grid-column, content-left / content-right);
+	display: var(--footer-display, flex);
+	grid-column: var(--footer-grid-column, viewport-left / viewport-right);
 	grid-row: var(--footer-grid-row, footer-top / footer-bottom);
+	justify-content: space-between;
 	margin-block: var(--footer-margin-block, 0);
 	margin-inline: var(--footer-margin-inline, 0);
-	padding-block: var(--footer-padding-block, 0);
-	padding-inline: var(--footer-padding-inline, 0);
+	padding-block: var(
+		--footer-padding-block,
+		var(--page-segment-padding-block, var(--space-s))
+	);
+	padding-inline: var(--footer-padding-inline, var(--page-padding-inline, 2vw));
+}
+
+.footer > * {
+	margin-block: var(--footer-child-margin-block, 0);
 }

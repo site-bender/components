@@ -1,0 +1,39 @@
+---
+import type { CardsProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+import generateShortId from "../../../utilities/generateShortId"
+
+const {
+	as: Element = "span",
+	content = {},
+	id = generateShortId(),
+	property,
+	title,
+	type,
+	useMicrodata,
+	...attrs
+} = Astro.props as CardsProps
+
+const attributes = mapAttributes(attrs, ["cards"])
+const contentAttrs = mapAttributes(content, ["cards-content"])
+
+const [itemscope, itemtype] =
+	useMicrodata && type ? [true, `https://schema.org/${type}`] : []
+const itemprop = useMicrodata ? property : undefined
+---
+
+<Element
+	{itemprop}
+	{itemscope}
+	{itemtype}
+	{...attributes}
+	{id}
+>
+	<slot name="header" />
+	<slot name="prologue" />
+	<div {...contentAttrs}>
+		<slot />
+	</div>
+	<slot name="epilogue" />
+</Element>

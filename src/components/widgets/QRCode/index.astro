@@ -1,0 +1,45 @@
+---
+import type { QRCodeProps, QROptions } from "./types"
+
+import generateQRCode from "../../../utilities/generateQRCode"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	canonicalSite,
+	content = "",
+	dark = "#000",
+	isPrintOnly = false,
+	light = "#fff",
+	message = "Scan this code to open this page on another device.",
+	qr = {},
+	size = 8,
+	type = "svg",
+	width = 360,
+	...attrs
+} = Astro.props as QRCodeProps
+
+const attributes = mapAttributes(attrs, [
+	"qr-code",
+	...(isPrintOnly ? ["print-only"] : []),
+])
+
+const color = { dark, light }
+const options = {
+	color,
+	errorCorrectionLevel: "H",
+	margin: 2,
+	size,
+	type,
+	width,
+	...qr,
+} as QROptions
+const txt = content || `${canonicalSite}${Astro.url.pathname}`
+
+const qrCode = await generateQRCode(txt, options)
+---
+
+<details {...attributes}>
+	<summary>QR Code</summary>
+	{message ? <p>{message}</p> : undefined}
+	<Fragment set:html={qrCode} />
+</details>

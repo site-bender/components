@@ -37,6 +37,8 @@ const label = compact([
 const [itemscope, itemtype, itemprop, nameProp] = useMicrodata
 	? [true, "https://schema.org/Person", "author", "name"]
 	: []
+
+const linkItemprop = useMicrodata ? { itemprop: "url" } : {}
 ---
 
 <Element
@@ -47,13 +49,10 @@ const [itemscope, itemtype, itemprop, nameProp] = useMicrodata
 	{...attributes}
 	>{
 		href ? (
-			<a {href}>
-				{useMicrodata ? (
-					<meta
-						itemprop="url"
-						content={href}
-					/>
-				) : null}
+			<a
+				{href}
+				{...linkItemprop}
+			>
 				<span itemprop={nameProp}>{label}</span>
 			</a>
 		) : (

@@ -1,0 +1,31 @@
+.cards {
+	margin: 0 var(--space-m, 1.5rem) var(--space-s, 1rem);
+	max-width: unset;
+}
+
+.cards .cards-content {
+	display: grid;
+	grid-gap: 1rem;
+}
+
+.cards .cards-header {
+	margin: 0 0 2rem;
+}
+
+.cards .cards-header .cards-title {
+	line-height: 1.4;
+	margin: 0;
+	padding: 0;
+}
+
+@supports (width: min(24rem, 100%)) {
+	.cards .cards-content {
+		grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+	}
+}
+
+@media only screen and (max-width: 880px) {
+	.cards {
+		max-width: calc(100vw - calc(var(--space-s, 1rem) * 2));
+	}
+}

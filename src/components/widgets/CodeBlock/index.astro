@@ -1,0 +1,66 @@
+---
+import type { CodeBlockProps } from "./types"
+import type { Frontmatter } from "../../../types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import getLineNumberingWidth from "../../../utilities/getLineNumberingWidth"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	caption,
+	hideClass = "sr-only",
+	index,
+	isIndexed,
+	legend = {},
+	lineNumberingWidth,
+	snippet,
+	style: styl = "",
+	type = "SoftwareSourceCode",
+	useMicrodata,
+	...attrs
+} = Astro.props as CodeBlockProps<Frontmatter>
+
+const legendAttrs = mapAttributes(legend, ["code-block-figcaption"])
+const attributes = mapAttributes(
+	attrs,
+	isIndexed ? ["code-block", "is-indexed"] : ["code-block"],
+)
+
+const cap =
+	(await Astro.slots.render("caption")) ||
+	caption ||
+	snippet?.frontmatter.caption
+
+const digits =
+	lineNumberingWidth || getLineNumberingWidth(snippet?.rawContent())
+const style = `${styl} --line-number-width: ${digits * 1.5}ch`
+
+const description = await Astro.slots.render("default")
+const labelledBy = description ? generateShortId() : undefined
+const aria = labelledBy ? { "aria-labelledby": labelledBy } : {}
+---
+
+<figure
+	{...attributes}
+	{...aria}
+	{style}
+>
+	{
+		cap && (
+			<figcaption {...legendAttrs}>
+				{index ? `Figure ${index}: ` : ""}
+				<Fragment set:html={cap} />
+			</figcaption>
+		)
+	}
+	<Fragment set:html={snippet?.compiledContent()} />
+	{
+		description ? (
+			<div
+				class={hideClass}
+				id={labelledBy}
+				set:html={description}
+			/>
+		) : null
+	}
+</figure>

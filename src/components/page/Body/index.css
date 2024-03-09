@@ -1,8 +1,10 @@
 body {
+	counter-reset: figures 0;
 	display: var(--body-display, grid);
 	grid-template-columns: var(
 		--body-grid-template-columns,
-		[viewport-left] 2vw [content-left] auto [content-right] 2vw [viewport-right]
+		[viewport-left] var(--page-padding-inline, 2vw) [content-left] auto
+			[content-right] var(--page-padding-inline, 2vw) [viewport-right]
 	);
 	grid-template-rows: var(
 		--body-grid-template-rows,
@@ -12,7 +14,32 @@ body {
 	);
 	font-family: var(--body-font-family, var(--font-body, initial));
 	font-size: var(--body-font-size, var(--step-0, initial));
+	font-variant-numeric: var(--body-font-variant-numeric, oldstyle-nums);
 	margin: 0;
 	min-height: 100vh;
 	padding: var(--body-padding, 0);
+}
+
+h1 {
+	font-family: var(--body-h1-font-family, var(--font-titles));
+}
+
+h2 {
+	font-family: var(--body-h2-font-family, var(--font-titles));
+}
+
+h3 {
+	font-family: var(--body-h3-font-family, var(--font-titles));
+}
+
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
 }

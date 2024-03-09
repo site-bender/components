@@ -1,0 +1,44 @@
+.card {
+	break-inside: avoid;
+	flex-grow: 1;
+	flex-shrink: 1;
+	margin: 0 -1rem 1rem;
+	max-width: 32rem;
+	padding: 1rem;
+}
+
+.card h2.card-heading,
+.card h3.card-heading,
+.card h4.card-heading {
+	font-size: var(--step-1, 1.25rem);
+	margin: 0;
+}
+
+.card .card-link {
+	filter: grayscale(1);
+}
+
+.card .card-link:focus,
+.card .card-link:hover {
+	filter: grayscale(0);
+}
+
+.card-subheading {
+	color: var(--hn-color, inherit);
+}
+
+.card:focus-within .card-link .card-heading,
+.card .card-link:hover .card-heading,
+.card .card-link:hover .card-subheading,
+.card .card-link:visited:hover .card-heading,
+.card .card-link:visited:hover .card-subheading {
+	color: var(--color-link, #0d4872);
+}
+
+@media only screen and (max-width: 880px) {
+	.card {
+		margin: 1rem auto 0;
+		max-width: 100%;
+		padding: 0 0 2rem;
+	}
+}

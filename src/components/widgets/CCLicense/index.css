@@ -1,0 +1,16 @@
+.cc-license-link {
+	align-items: center;
+	display: flex;
+	gap: var(--cc-license-link-gap, 0.2rem);
+	justify-content: var(--cc-license-link-justify-content, center);
+	margin-block: var(--cc-license-link-margin-block, 0);
+	margin-inline: var(--cc-license-link-margin-inline, 0);
+	max-width: min-content;
+}
+
+.cc-license-link:focus,
+.cc-license-link:hover {
+	border-radius: var(--cc-license-link-border-radius-hover, 0.25rem);
+	outline: var(--cc-license-link-outline-hover, 2px solid black);
+	outline-offset: var(--cc-license-link-outline-offset-hover, 0.25rem);
+}

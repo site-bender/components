@@ -1,0 +1,18 @@
+.qr-code {
+	align-items: center;
+	display: flex;
+	flex-shrink: 1;
+	justify-content: center;
+	margin-block: var(--qr-code-margin-block, 3rem auto);
+	margin-inline: var(--qr-code-margin-inline, var(--page-padding-inline, 2vw));
+	max-width: var(--qr-code-max-width, min-content);
+	padding-block: var(--qr-code-padding-block, 2rem);
+	padding-inline: var(--qr-code-padding-inline, 0);
+}
+
+.qr-code summary {
+	padding-block: var(--qr-code-summary-padding-block, 0);
+	padding-inline: var(--qr-code-summary-padding-inline, 0);
+	outline-offset: var(--qr-code-summary-outline-offset, 0.5rem);
+	white-space: nowrap;
+}
