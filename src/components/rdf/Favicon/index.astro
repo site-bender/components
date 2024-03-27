@@ -1,0 +1,78 @@
+---
+import type { FaviconProps } from "./types"
+
+import type { FileData } from "../../../types"
+
+import not from "../../../utilities/not"
+
+const { files = [], tileColor = "#fff" } = Astro.props as FaviconProps
+
+const filenames = files.map((file: FileData) =>
+	(typeof file.default === "string" ? file.default : file.default?.src)
+		?.split("?")
+		.at(0)
+		?.split("public/")
+		.at(1),
+)
+---
+
+<meta
+	name="msapplication-TileColor"
+	content={tileColor}
+/>
+{
+	filenames.map(filename => {
+		const parts = filename?.match(/^mstile-([0-9]+x[0-9]+).+$/)
+
+		if (not(parts)) {
+			return null
+		}
+
+		const name =
+			parts?.[1] === "144x144"
+				? "msapplication-TileImage"
+				: `msapplication-square${parts?.[1]}logo`
+
+		return (
+			<meta
+				{name}
+				content={parts?.[0]}
+			/>
+		)
+	})
+}
+<link
+	rel="icon"
+	type="image/svg+xml"
+	href="/favicon.svg"
+	sizes="any"
+/>
+{
+	filenames.includes("apple-touch-icon.png") ? (
+		<link
+			rel="apple-touch-icon"
+			href="/apple-touch-icon.png"
+		/>
+	) : null
+}
+{
+	filenames.map(filename => {
+		const parts = filename?.match(/^apple-touch-icon-([0-9]+x[0-9]+).+$/)
+
+		return parts ? (
+			<link
+				rel="apple-touch-icon-precomposed"
+				sizes={parts[1]}
+				href={parts[0]}
+			/>
+		) : null
+	})
+}
+{
+	filenames.includes("site.webmanifest") ? (
+		<link
+			rel="manifest"
+			href="/site.webmanifest"
+		/>
+	) : null
+}

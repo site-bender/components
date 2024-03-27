@@ -10,7 +10,7 @@
 
 .cc-license-link:focus,
 .cc-license-link:hover {
-	border-radius: var(--cc-license-link-border-radius-hover, 0.25rem);
+	border-radius: var(--cc-license-link-border-radius-hover, 0.2rem);
 	outline: var(--cc-license-link-outline-hover, 2px solid black);
 	outline-offset: var(--cc-license-link-outline-offset-hover, 0.25rem);
 }

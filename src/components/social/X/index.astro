@@ -1,0 +1,51 @@
+---
+import type { SocialLinkProps } from "../types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import Icon from "./icon.astro"
+
+const {
+	fill = "#636363",
+	height = "48px",
+	hideClass = "sr-only",
+	href,
+	innerFill = "#fff",
+	title,
+	width = "48px",
+	...attrs
+} = Astro.props as SocialLinkProps
+
+const attributes = mapAttributes(attrs, ["x-social-link"])
+
+const queryString = `text=${encodeURIComponent(title)}`
+const clickHandler = `
+	window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+	return false`
+---
+
+{
+	href ? (
+		<a
+			{...attributes}
+			aria-labelledby="x-label"
+			href={`${href}?${queryString}`}
+			onclick={clickHandler}
+			title="Share on X."
+			rel="noopener,nofollow"
+		>
+			<Icon
+				{fill}
+				{height}
+				{innerFill}
+				{width}
+			/>
+			<span
+				class={hideClass}
+				id="x-label"
+			>
+				Share on X.
+			</span>
+		</a>
+	) : null
+}

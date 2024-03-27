@@ -1,0 +1,13 @@
+---
+import type { ViewportProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const { as: Element = "aside", ...attrs } = Astro.props as ViewportProps
+
+const attributes = mapAttributes(attrs, ["viewport"])
+---
+
+<Element {...attributes}>
+	<slot />
+</Element>

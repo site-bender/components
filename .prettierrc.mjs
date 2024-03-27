@@ -9,7 +9,7 @@ export default {
 			},
 		},
 	],
-	arrowParens: "always",
+	arrowParens: "avoid",
 	bracketSameLine: false,
 	bracketSpacing: true,
 	proseWrap: "always",

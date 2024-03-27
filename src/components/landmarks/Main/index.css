@@ -8,3 +8,7 @@
 	padding-block: var(--main-padding-block, 0);
 	padding-inline: var(--main-padding-inline, 0);
 }
+
+.main a {
+	color: var(--main-link-foreground-color, currentColor);
+}

@@ -1,5 +1,9 @@
-import { Formattable, HTMLAttributes, LinkProps, Override } from "../../../types"
-
+import {
+	Formattable,
+	HTMLAttributes,
+	LinkProps,
+	Override,
+} from "../../../types"
 
 export type TelephoneProps = Override<
 	HTMLAttributes,

@@ -1,4 +1,4 @@
-import type { AstroBuiltinAttributes } from "astro"
+import type { AstroBuiltinAttributes, AstroInstance } from "astro"
 import type { HTMLTag } from "astro/types"
 import type { Temporal } from "temporal-polyfill"
 
@@ -37,6 +37,17 @@ export type DurationOptions = {
 	seconds?: number | undefined
 	weeks?: number | undefined
 	years?: number | undefined
+}
+
+export type FileData = {
+	default:
+		| string
+		| {
+				src: string
+				width: number
+				height: number
+				format: string
+		  }
 }
 
 export type Formattable = {
@@ -101,6 +112,22 @@ export type MDXInstance<T> = {
 	rawContent: () => string
 	title?: string | undefined
 	url: string | undefined
+}
+
+export type Metadata = {
+	children?: Array<string> | undefined
+	description?: string | undefined
+	keywords?: Array<string> | undefined
+	label?: string | undefined
+	next?: string | undefined
+	pageTitle?: string | undefined
+	prev?: string | undefined
+	robots?: string | undefined
+	title?: string | undefined
+}
+
+export interface AstroPage extends AstroInstance {
+	metadata: Metadata
 }
 
 export type Person = {
@@ -223,7 +250,6 @@ export type AriaAttributes = {
 		| "date"
 		| "time"
 		| undefined
-		| null
 	/**
 	 * Identifies the element (or elements) that describes the object.
 	 * @see aria-labelledby
@@ -251,7 +277,6 @@ export type AriaAttributes = {
 		| "move"
 		| "popup"
 		| undefined
-		| null
 	/**
 	 * Identifies the element that provides an error message for the object.
 	 * @see aria-invalid @see aria-describedby.
@@ -275,7 +300,6 @@ export type AriaAttributes = {
 		| "grid"
 		| "dialog"
 		| undefined
-		| null
 	/**
 	 * Indicates whether the element is exposed to an accessibility API.
 	 * @see aria-disabled.
@@ -292,7 +316,6 @@ export type AriaAttributes = {
 		| "grammar"
 		| "spelling"
 		| undefined
-		| null
 	/** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
 	"aria-keyshortcuts"?: string | undefined
 	/**
@@ -359,7 +382,6 @@ export type AriaAttributes = {
 		| "text additions"
 		| "text removals"
 		| undefined
-		| null
 	/** Indicates that user input is required on the element before a form may be submitted. */
 	"aria-required"?: boolean | "false" | "true" | undefined
 	/** Defines a human-readable, author-localized description for the role of an element. */
@@ -741,7 +763,6 @@ export type Attributes = AriaAttributes &
 			| "inherit"
 			| string
 			| undefined
-			| null
 		dir?: string | undefined
 		draggable?: "true" | "false" | boolean | undefined
 		enterkeyhint?:
@@ -753,7 +774,6 @@ export type Attributes = AriaAttributes &
 			| "search"
 			| "send"
 			| undefined
-			| null
 		hidden?: boolean | string | undefined
 		id?: string | undefined
 		inert?: boolean | string | undefined
@@ -767,7 +787,6 @@ export type Attributes = AriaAttributes &
 			| "decimal"
 			| "search"
 			| undefined
-			| null
 		is?: string | undefined
 		itemid?: string | undefined
 		itemprop?: string | undefined

@@ -1,5 +1,9 @@
-import { HTMLAttributes, LinkProps, PictureProps, Override } from "../../../../types"
-
+import {
+	HTMLAttributes,
+	LinkProps,
+	PictureProps,
+	Override,
+} from "../../../../types"
 
 export type CardProps = Override<
 	HTMLAttributes,

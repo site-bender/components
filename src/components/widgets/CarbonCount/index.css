@@ -1,0 +1,69 @@
+.carbon-check {
+	border: var(--carbon-check-border, 2px solid currentColor);
+	border-radius: 0.2rem;
+	max-width: min(24rem, 90vw);
+	font-size: var(--step-0);
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: center;
+	margin: 2rem auto 0;
+	width: 100%;
+}
+
+.ecograder,
+.carbon-percentage {
+	background-color: var(--carbon-count-percentage-background-color, inherit);
+	color: var(--carbon-count-percentage-foreground-color, currentColor);
+	margin-block: 0;
+	margin-inline: 0;
+	padding-block: var(--carbon-count-percentage-padding-block, var(--space-2xs));
+	text-align: center;
+}
+
+.carbon-count {
+	border: 2px solid var(--color-green-tinted);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0;
+}
+
+.carbon-count .count,
+.carbon-count .carbon-logo {
+	flex: 1 1 0;
+	border: none;
+	line-height: 2;
+	text-align: center;
+}
+
+.carbon-count .carbon-logo {
+	background-color: var(--carbon-count-logo-background-color, inherit);
+	color: var(--carbon-count-logo-foreground-color, currentColor);
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.carbon-count a.carbon-logo:focus,
+.carbon-count a.carbon-logo:hover {
+	background-color: var(--color-neutral-82);
+	color: var(--color-green-tinted);
+	display: inline;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+}
+
+@media (max-width: 36rem) {
+	.carbon-count {
+		border: 2px solid var(--color-green-tinted);
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: space-between;
+		gap: 0;
+	}
+}

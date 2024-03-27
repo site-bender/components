@@ -20,9 +20,9 @@ function getSrcset(
 	filename: string,
 	sizes: Array<number>,
 	types: Array<ImageType>,
-	media: string,
+	media?: string | undefined,
 ) {
-	return types.map((type) => {
+	return types.map(type => {
 		const ext = type.split("/").at(-1)
 		const mediaAttr = media ? ` media="${media}"` : ""
 		const srcset = sizes

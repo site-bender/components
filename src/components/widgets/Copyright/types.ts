@@ -1,5 +1,5 @@
 import { HTMLAttributes, Override } from "../../../types"
-import type { Organization, Person } from "../../../types/schema.org";
+import type { Organization, Person } from "../../../types/schema.org"
 
 export type CopyrightProps = Override<
 	HTMLAttributes,

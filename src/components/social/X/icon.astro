@@ -1,0 +1,42 @@
+---
+import type { IconProps } from "../types"
+
+const { height = "48px", width = "48px" } = Astro.props as IconProps
+---
+
+<style>
+	path,
+	rect,
+	.x-wide {
+		fill: var(--x-icon-fill, #636363);
+		stroke: var(--x-icon-inner-fill, #fff);
+	}
+
+	:focus rect,
+	:focus .x-wide,
+	:hover rect,
+	:hover .x-wide {
+		fill: var(--x-icon-fill-hover, #0f1419);
+	}
+</style>
+<svg
+	{height}
+	viewBox="0 0 48 48"
+	{width}
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<rect
+		height="46"
+		rx="12"
+		ry="12"
+		width="46"
+		x="1"
+		y="1"
+	></rect>
+	<path d="M 12 36 L 16 36 L 36 12 L 32 12 z"></path>
+	<path
+		class="x-wide"
+		d="M 13 13.5 L 29 34.5 L 38 34.5 L 22 13.5 z"
+		stroke-width="3"
+	></path>
+</svg>

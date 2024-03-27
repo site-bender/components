@@ -1,0 +1,25 @@
+.logotype-wrapper {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+	justify-content: flex-start;
+}
+
+.logotype {
+	background-color: var(--logotype-background-color, inherit);
+	color: var(--logotype-foreground-color, currentColor);
+	font-size: var(--logotype-font-size, var(--step-2));
+}
+
+a.logotype-wrapper {
+	color: var(--logotype-link-foreground-color, currentColor);
+	text-decoration: (var(--logotype-link-text-decoration, none));
+	outline: none;
+}
+
+a.logotype-wrapper:focus,
+a.logotype-wrapper:hover {
+	border-radius: 5px;
+	outline: var(--logotype-link-outline, 2px solid currentColor);
+	outline-offset: var(--logotype-link-outline-offset, 0.25rem);
+}

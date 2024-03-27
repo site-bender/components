@@ -1,0 +1,47 @@
+---
+import type { CarbonCount } from "./types"
+
+const { beacon } = Astro.props as CarbonCount
+---
+
+{
+	beacon ? (
+		<article
+			class="carbon-check"
+			aria-labelledby="carbon-check"
+		>
+			<h2
+				id="carbon-check"
+				class="sr-only"
+			>
+				Carbon emissions for this page
+			</h2>
+			<div class="carbon-percentage">
+				Cleaner than {beacon.percentage}% of pages tested
+			</div>
+			<div class="carbon-count">
+				<span class="count">
+					{beacon.firstCarbon?.toFixed(3)}g{" "}
+					<span aria-hidden="true">&rarr;</span>
+					<span class="sr-only">
+						on first visit; then on return visits
+					</span>{" "}
+					{beacon.repeatCarbon?.toFixed(3)}g
+				</span>
+				{beacon.href ? (
+					<a
+						class="carbon-logo"
+						href={beacon.href}
+						rel="external"
+					>
+						Beacon: <strong>{beacon.grade}</strong>
+					</a>
+				) : (
+					<span class="carbon-logo">
+						Beacon: <strong>{beacon.grade}</strong>
+					</span>
+				)}
+			</div>
+		</article>
+	) : null
+}

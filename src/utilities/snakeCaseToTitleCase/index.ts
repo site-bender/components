@@ -6,6 +6,6 @@ export default function snakeCaseToTitleCase(snakeStr = ""): string {
 	const [head, ...tail] = snakeStr
 
 	return `${head?.toLocaleUpperCase()}${tail
-		.map((c) => (c === "-" ? " " : c))
+		.map(c => (c === "-" ? " " : c))
 		.join("")}.`
 }

@@ -3,14 +3,23 @@ import type { HeadProps } from "./types"
 
 import mapAttributes from "../../../utilities/mapAttributes"
 
-const { config = {}, ...attrs } = Astro.props as HeadProps
+const {
+	metadata = {},
+	siteTitle = "@sitebender/components",
+	...attrs
+} = Astro.props as HeadProps
 
 const attributes = mapAttributes(attrs, [])
+
+const { title } = metadata
+
+const pagetitle = title ? `${title} :: ${siteTitle}` : siteTitle
 ---
 
 <head {...attributes}>
-	<title>{config.title ?? "@sitebender/components"}</title>
+	<title>{pagetitle}</title>
 	<meta charset="UTF-8" />
+	<slot />
 	<slot name="microdata" />
 	<slot name="scripts" />
 </head>

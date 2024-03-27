@@ -1,6 +1,5 @@
 import { HTMLAttributes, MDXInstance, Override } from "../../../types"
 
-
 export type CodeBlockProps<T> = Override<
 	HTMLAttributes,
 	{

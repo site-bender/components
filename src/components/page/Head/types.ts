@@ -1,8 +1,9 @@
-import type { HTMLAttributes, Override } from "../../../types"
+import type { HTMLAttributes, Metadata, Override } from "../../../types"
 
 export type HeadProps = Override<
 	HTMLAttributes,
 	{
-		config?: Record<string, unknown>
+		metadata?: Metadata | undefined
+		siteTitle?: string | undefined
 	}
 >

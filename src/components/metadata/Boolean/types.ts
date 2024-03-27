@@ -1,6 +1,5 @@
 import { HTMLAttributes, Override } from "../../../types"
 
-
 export type BooleanProps = Override<
 	HTMLAttributes,
 	{

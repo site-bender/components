@@ -1,0 +1,19 @@
+---
+import type { SkipLinkProps } from "./types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	href = "#main-content",
+	label = "Skip to content",
+	...attrs
+} = Astro.props as SkipLinkProps
+
+const attributes = mapAttributes(attrs, ["skip-link"])
+---
+
+<a
+	{...attributes}
+	{href}
+	>{label}</a
+>

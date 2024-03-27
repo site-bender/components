@@ -1,0 +1,27 @@
+.viewport {
+	align-items: center;
+	background-color: black;
+	inset: 0;
+	color: white;
+	display: flex;
+	justify-content: center;
+	min-height: 100vh;
+	max-height: 100vh;
+	overflow: auto;
+	position: absolute;
+	transition: margin-top 1s ease-in-out;
+	z-index: 100000000;
+}
+
+:has(#toggle) .viewport {
+	margin-top: -125vw;
+}
+
+:has(#toggle:checked) .viewport {
+	margin-top: 0;
+}
+
+:has(#toggle:focus) .viewport,
+:has(#toggle:hover) .viewport {
+	animation-play-state: running;
+}

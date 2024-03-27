@@ -1,0 +1,54 @@
+---
+import type { SocialLinkProps } from "../types"
+
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import Icon from "./icon.astro"
+
+const {
+	fill = "#636363",
+	height = "48px",
+	hideClass = "sr-only",
+	href,
+	innerFill = "#fff",
+	title,
+	url = Astro.url,
+	width = "48px",
+	...attrs
+} = Astro.props as SocialLinkProps
+
+const attributes = mapAttributes(attrs, ["reddit-social-link"])
+
+const queryString = `url=${encodeURIComponent(url.toString())}&title=${encodeURIComponent(
+	title,
+)}`
+const clickHandler = `
+	window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+	return false`
+---
+
+{
+	href ? (
+		<a
+			{...attributes}
+			aria-labelledby="reddit-label"
+			href={`${href}?${queryString}`}
+			onclick={clickHandler}
+			title="Share on Reddit."
+			rel="noopener,nofollow"
+		>
+			<Icon
+				{fill}
+				{height}
+				{innerFill}
+				{width}
+			/>
+			<span
+				class={hideClass}
+				id="reddit-label"
+			>
+				Share on Reddit.
+			</span>
+		</a>
+	) : null
+}

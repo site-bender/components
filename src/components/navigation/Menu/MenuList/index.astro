@@ -1,0 +1,71 @@
+---
+import type { MenuListProps } from "./types"
+import type { AstroPage } from "../../../../types"
+
+import mapAttributes from "../../../../utilities/mapAttributes"
+
+const {
+	links = [] as Array<string>,
+	listItems = {},
+	pages = [] as Array<AstroPage>,
+	prefix = "",
+	depth = 0,
+	...attrs
+} = Astro.props as MenuListProps
+
+const attributes = mapAttributes(
+	attrs,
+	depth ? ["menu-list", "recursive"] : ["menu-list"],
+)
+const listItemAttrs = mapAttributes(listItems, ["menu-list-item"])
+
+const { pathname } = Astro.url
+---
+
+<ul {...attributes}>
+	{
+		links.map(segment => {
+			const href = `${prefix}${segment}`
+			const { metadata } =
+				pages.find(page => page.url === href) || ({} as AstroPage)
+
+			const path = pathname.replace(/\/$/, "") || "/"
+			const { children, label, title } = metadata || {}
+			const text = label || title
+
+			if (text) {
+				return href === path ? (
+					<li {...listItemAttrs}>
+						<span class="this-page">{text}</span>
+						{depth && children ? (
+							<Astro.self
+								{...attrs}
+								links={children}
+								{listItems}
+								{pages}
+								prefix={href}
+								depth={depth - 1}
+							/>
+						) : null}
+					</li>
+				) : (
+					<li {...listItemAttrs}>
+						<a {href}>{text}</a>
+						{depth && children ? (
+							<Astro.self
+								{...attrs}
+								links={children}
+								{listItems}
+								{pages}
+								prefix={href}
+								depth={depth - 1}
+							/>
+						) : null}
+					</li>
+				)
+			}
+
+			return null
+		})
+	}
+</ul>

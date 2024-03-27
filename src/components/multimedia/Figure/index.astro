@@ -1,0 +1,38 @@
+---
+import type { FigureProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	caption: cap,
+	figcaption = {},
+	id = generateShortId(),
+	index,
+	isIndexed,
+	...attrs
+} = Astro.props as FigureProps
+
+const attributes = mapAttributes(attrs, ["figure"])
+const figcaptionAttrs = mapAttributes(figcaption, ["figcaption"])
+
+const indexed = isIndexed ? { class: "indexed" } : {}
+
+const caption = (await Astro.slots.render("caption")) || cap
+---
+
+<figure
+	{...attributes}
+	{id}
+	{...indexed}
+>
+	{
+		caption && (
+			<figcaption {...figcaptionAttrs}>
+				{index ? `Figure ${index}: ` : ""}
+				<Fragment set:html={caption} />
+			</figcaption>
+		)
+	}
+	<slot />
+</figure>

@@ -1,0 +1,53 @@
+---
+import type { TrailProps } from "./types"
+
+import getTrail from "../../../utilities/getTrail"
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	fallback,
+	fullWidth,
+	hideClass,
+	id = generateShortId(),
+	includeCurrentPage,
+	pages = [],
+	property = "breadcrumb",
+	useMicrodata,
+	...attrs
+} = Astro.props as TrailProps
+
+const { pathname } = Astro.url
+
+const trail = getTrail(pathname, pages, includeCurrentPage)
+
+const attributes = mapAttributes(
+	attrs,
+	fullWidth ? ["trail", "full-width"] : ["trail"],
+)
+
+const itemprop = useMicrodata ? property : undefined
+---
+
+{
+	pathname.length > 1 ? (
+		<nav
+			{itemprop}
+			aria-label="Breadcrumb trail"
+			{...attributes}
+			{id}
+		>
+			<ol class="trail-crumbs">
+				{trail.map(({ href, label }, index) => (
+					<li class="trail-link">
+						{includeCurrentPage && index === trail.length - 1 ? (
+							<span class="this-page">{label}</span>
+						) : (
+							<a {href}>{label}</a>
+						)}
+					</li>
+				))}
+			</ol>
+		</nav>
+	) : undefined
+}

@@ -1,0 +1,76 @@
+.toggle {
+	border: 2px solid transparent;
+	border-radius: 3px;
+	align-items: center;
+	background-color: var(--toggle-background-color, transparent);
+	color: var(--header-color);
+	display: flex;
+	flex-direction: column;
+	height: 48px;
+	justify-content: space-between;
+	padding: 6px;
+	width: 54px;
+	position: fixed;
+	max-width: 54px;
+	top: var(--space-s);
+	right: 2vw;
+	z-index: 1000000000;
+	transition: all 0.5s ease-in-out;
+}
+
+header.header {
+	padding-right: calc(2vw + 100px);
+}
+
+.toggle:focus-within,
+.toggle:hover {
+	border-color: var(--toggle-border-color-hover, currentColor);
+	transition: all 0.5s ease-in-out;
+}
+
+.toggle span {
+	background-color: var(--toggle-color, currentColor);
+	border-radius: 2px;
+	height: 9px;
+	width: 100%;
+	transition: all 0.5s ease-in-out;
+}
+
+.toggle:focus-within span,
+.toggle:hover span {
+	background: var(--toggle-color-hover, currentColor);
+}
+
+.toggle input#toggle {
+	position: absolute;
+	height: 100%;
+	inset: 0;
+	opacity: 0;
+	width: 100%;
+	z-index: 1000000;
+}
+
+input#toggle:checked + span {
+	transform: translate(0, 19px) rotate(45deg);
+	transform-origin: center;
+	transition: all 0.5s ease-in-out;
+}
+
+input#toggle:checked + span + span {
+	opacity: 0;
+	transition: all 0.5s ease-in-out;
+}
+
+input#toggle:checked + span + span + span {
+	transform: translate(0, -19px) rotate(-45deg);
+	transform-origin: center;
+	transition: all 0.5s ease-in-out;
+}
+
+@media only screen and (max-width: 48rem) {
+	.toggle {
+		animation: unset;
+		animation-iteration-count: 0;
+		opacity: 0.7;
+	}
+}

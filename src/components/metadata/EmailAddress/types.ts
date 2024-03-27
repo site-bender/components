@@ -1,6 +1,10 @@
-import { Formattable, HTMLAttributes, LinkProps, Override } from "../../../types"
+import {
+	Formattable,
+	HTMLAttributes,
+	LinkProps,
+	Override,
+} from "../../../types"
 import { MailtoOptions } from "../../../utilities/createMailto/types"
-
 
 export type EmailProps = Override<
 	HTMLAttributes,

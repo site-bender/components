@@ -1,6 +1,5 @@
 import { HTMLAttributes, Override } from "src/types"
 
-
 export type PullQuoteProps = Override<
 	HTMLAttributes,
 	{

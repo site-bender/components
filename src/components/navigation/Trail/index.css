@@ -1,0 +1,60 @@
+.trail {
+	background-color: var(--trail-background-color, inherit);
+	color: var(--trail-foreground-color, currentColor);
+	display: grid;
+	grid-column: var(--trail-grid-column, viewport-left / viewport-right);
+	grid-row: var(--trail-grid-row, nav-top / nav-bottom);
+	margin-block: 0;
+	margin-inline: 0;
+	padding-block: var(--space-s, 1rem);
+	padding-inline: var(--page-padding-inline, 2vw);
+}
+
+.trail-crumbs {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	list-style-type: none;
+	margin-block: 0;
+	margin-inline: 0;
+	padding-block: 0;
+	padding-inline: 0;
+}
+
+.trail-link:has(a)::after {
+	content: var(--trail-crumb-separator, "/");
+	display: inline-block;
+	margin-inline: var(--trail-crumb-separator-gap, var(--space-xs));
+}
+
+.trail-link {
+	color: var(--trail-crumb-separator-color, currentColor);
+	text-transform: lowercase;
+}
+
+.trail-link a {
+	background-color: var(--trail-link-background-color, inherit);
+	color: var(--trail-link-foreground-color, initial);
+	text-decoration: none;
+}
+
+.trail-link a:visited {
+	color: var(--trail-link-foreground-color-visited, initial);
+}
+
+.trail-link a:focus,
+.trail-link a:hover {
+	border-radius: 5px;
+	outline: var(--trail-link-outline, 2px solid currentColor);
+	outline-offset: 0.25rem;
+}
+
+.trail-link a:visited:focus,
+.trail-link a:visited:hover {
+	outline: var(--trail-link-outline-visited, 2px solid currentColor);
+}
+
+.this-page {
+	color: var(--trail-current-page-foreground-color, initial);
+}

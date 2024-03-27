@@ -1,6 +1,11 @@
 import type { Temporal } from "temporal-polyfill"
 
-import { Formattable, HTMLAttributes, LinkProps, Override } from "../../../types"
+import {
+	Formattable,
+	HTMLAttributes,
+	LinkProps,
+	Override,
+} from "../../../types"
 
 import type { TIME_ZONE } from "../../constants"
 

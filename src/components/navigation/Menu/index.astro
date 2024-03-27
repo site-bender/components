@@ -1,0 +1,38 @@
+---
+import type { MenuProps } from "./types"
+import type { AstroPage } from "../../../types"
+
+import genreateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+import MenuList from "./MenuList/index.astro"
+
+const {
+	id = genreateShortId(),
+	links = [] as Array<string>,
+	list = {},
+	listItems = {},
+	pages = [] as Array<AstroPage>,
+	depth,
+	...attrs
+} = Astro.props as MenuProps
+
+const attributes = mapAttributes(attrs, ["menu"])
+---
+
+{
+	links.length ? (
+		<nav
+			{...attributes}
+			{id}
+		>
+			<MenuList
+				{...list}
+				{links}
+				{listItems}
+				{pages}
+				{depth}
+			/>
+		</nav>
+	) : null
+}

@@ -1,0 +1,51 @@
+---
+import type { LogoProps } from "./types"
+import type { LinkProps } from "../../../types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttributes from "../../../utilities/mapAttributes"
+
+const {
+	as: Element = "span",
+	id = generateShortId(),
+	link = {} as LinkProps,
+	logotype,
+	...attrs
+} = Astro.props as LogoProps
+
+const { href: _href, ...lAttrs } = link
+const { pathname } = Astro.url
+const isHome = pathname.length < 2
+
+const attributes = mapAttributes(attrs, ["logotype"])
+const linkAttrs = mapAttributes(lAttrs, ["logotype-wrapper"])
+
+const text = (await Astro.slots.render("default")) || logotype
+const symbol = await Astro.slots.render("symbol")
+---
+
+{
+	isHome ? (
+		<div class="logotype-wrapper">
+			{symbol ? <Fragment set:html={symbol} /> : null}
+			<Element
+				{...attributes}
+				{id}
+				set:html={text}
+			/>
+		</div>
+	) : (
+		<a
+			{...linkAttrs}
+			href="/"
+			title="To the home page."
+		>
+			{symbol ? <Fragment set:html={symbol} /> : null}
+			<Element
+				{...attributes}
+				{id}
+				set:html={text}
+			/>
+		</a>
+	)
+}

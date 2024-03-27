@@ -1,0 +1,44 @@
+---
+import type { MessengerProps } from "./types"
+
+import generateShortId from "../../../utilities/generateShortId"
+import mapAttribtues from "../../../utilities/mapAttributes"
+
+const {
+	as: Element = "aside",
+	heading = {},
+	hideClass = "sr-only",
+	hideTitle,
+	id = generateShortId(),
+	title: ttl,
+	type = "info",
+	...attrs
+} = Astro.props as MessengerProps
+
+const { as: HElement = "h2", ...hAttrs } = heading
+
+const labelId = `${id}_label`
+
+const attributes = mapAttribtues(attrs, ["messenger", `messenger-${type}`])
+const headingAttrs = mapAttribtues(
+	hAttrs,
+	hideTitle ? ["heading", hideClass] : ["heading"],
+)
+
+const title = (await Astro.slots.render("title")) || ttl
+---
+
+<Element
+	{...attributes}
+	{id}
+>
+	<div class="content">
+		<HElement
+			{...headingAttrs}
+			id={labelId}
+		>
+			{title}
+		</HElement>
+		<slot />
+	</div>
+</Element>

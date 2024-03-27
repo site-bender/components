@@ -20,7 +20,6 @@ export type QROptions = {
 	size?: number | undefined
 	version?: number | undefined
 	width?: number | undefined
-
 }
 
 export type QRCodeProps = Override<

@@ -1,0 +1,16 @@
+---
+const { hideClass = "sr-only" } = Astro.props
+---
+
+<label class="toggle">
+	<input
+		id="toggle"
+		name="toggle"
+		title="Hit the spacebar to toggle the menu."
+		type="checkbox"
+	/>
+	<span></span>
+	<span></span>
+	<span></span>
+	<span class={hideClass}>Menu toggle (ignore)<br /><br /></span>
+</label>

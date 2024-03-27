@@ -1,8 +1,12 @@
 .header {
+	align-items: center;
 	background-color: var(--header-background-color, inherit);
 	color: var(--header-foreground-color, currentColor);
+	display: flex;
+	gap: var(--space-xs, 1rem);
 	grid-column: var(--header-grid-column, viewport-left / viewport-right);
 	grid-row: var(--header-grid-row, header-top / header-bottom);
+	justify-content: var(--header-justify-content, space-between);
 	margin-block: var(--header-margin-block, 0);
 	margin-inline: var(--header-margin-inline, 0);
 	padding-block: var(

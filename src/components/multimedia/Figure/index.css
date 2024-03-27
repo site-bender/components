@@ -1,0 +1,25 @@
+.figure {
+	align-items: var(--figure-align-items, stretch);
+	display: flex;
+	flex-direction: var(--figure-flex-direction, column-reverse);
+	gap: var(--figure-gap, 0.5rem);
+	justify-content: var(--figure-justify-content, space-between);
+	margin-block: var(--figure-margin-block, var(--space-m, 1.25rem));
+	margin-inline: var(--figure-margin-inline, auto);
+	padding-block: var(--figure-padding-block, 0);
+	padding-inline: var(--figure-padding-inline, 0);
+	max-width: var(--figure-max-width, min-content);
+}
+
+.figcaption {
+	line-height: 1;
+	padding-block: var(
+		--figure-figcaption-padding-block,
+		var(--space-2xs, 0.5rem)
+	);
+	text-align: center;
+}
+
+figure.is-indexed figcaption::before {
+	content: "Figure " counter(figures) ": ";
+}

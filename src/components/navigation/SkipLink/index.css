@@ -1,0 +1,44 @@
+.skip-link {
+	background-color: var(--skip-link-background-color, inherit);
+	border-radius: 5px;
+	color: var(--skip-link-foreground-color, currentColor);
+	font-size: var(--step-1, 1.25rem);
+	font-family: var(
+		--font-body,
+		Inter,
+		Roboto,
+		"Helvetica Neue",
+		"Arial Nova",
+		"Nimbus Sans",
+		Arial,
+		sans-serif
+	);
+	left: -100000px;
+	margin-block: var(--skip-link-margin-block, 0);
+	margin-inline: var(--skip-link-margin-inline, 1rem);
+	padding: 0.1rem;
+	position: absolute;
+	top: -100000px;
+}
+
+.skip-link:focus {
+	background-color: var(--skip-link-background-focus, inherit);
+	color: var(--skip-link-foreground-color-focus, currentColor);
+	display: inline-block;
+	opacity: 1;
+	outline: var(--skip-link-outline, 2px solid currentColor);
+	outline-offset: var(--skip-link-outline-offset, 0.25rem);
+	position: unset;
+	text-decoration: none;
+	width: auto;
+}
+
+@media screen and (max-width: 47rem) {
+	.skip-link:focus,
+	.skip-link:hover {
+		left: -100000px;
+		opacity: 1;
+		position: absolute;
+		top: -100000px;
+	}
+}
